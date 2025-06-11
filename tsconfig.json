@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES6",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "strict": true,
+    "types": ["jest", "node"]
+  },
+  "include": ["src", "tests"]
+}
