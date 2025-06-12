@@ -1,5 +1,5 @@
 import { Router } from "express";
-
+import userRouter from "./UserRouter";
 
 const routes = Router();
 
@@ -13,5 +13,7 @@ routes.use("/", (req, res) => {
         },
     });
 });
+
+routes.use("/users", userRouter);
 
 export default routes;
