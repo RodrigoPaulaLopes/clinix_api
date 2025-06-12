@@ -9,26 +9,26 @@ const userRepository = AppDataSource.getRepository(User);
 
 export default class UserRepository {
 
-    static async findAll(): Promise<User[]> {
+    async findAll(): Promise<User[]> {
         return await userRepository.find();
     }
-    static async findById(id: string): Promise<User | null> {
+    async findById(id: string): Promise<User | null> {
         return await userRepository.findOneBy({ id });
     }
 
-    static async findByEmail(email: string): Promise<User | null> {
+    async findByEmail(email: string): Promise<User | null> {
         return await userRepository.findOneBy({ email });
     }
 
-    static async create(user: User): Promise<User> {
+    async create(user: User): Promise<User> {
         return await userRepository.save(user);
     }
 
-    static async update(user: User): Promise<User> {
+    async update(user: User): Promise<User> {
         return await userRepository.save(user);
     }
 
-    static async delete(id: string): Promise<void> {
+    async delete(id: string): Promise<void> {
         await userRepository.delete(id);
     }
 }

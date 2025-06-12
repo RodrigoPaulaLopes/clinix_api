@@ -2,27 +2,33 @@ import { User } from "../database/entities/User";
 import UserRepository from "../repositories/UserRepository";
 
 export default class UserServices {
-    static async findAll(): Promise<User[]> {
-        return await UserRepository.findAll();
+
+    userRepository: UserRepository;
+
+    constructor() {
+        this.userRepository = new UserRepository();
+    }
+    async findAll(): Promise<User[]> {
+        return await this.userRepository.findAll();
     }
 
-    static async findById(id: string): Promise<User | null> {
-        return await UserRepository.findById(id);
+    async findById(id: string): Promise<User | null> {
+        return await this.userRepository.findById(id);
     }
 
-    static async findByEmail(email: string): Promise<User | null> {
-        return await UserRepository.findByEmail(email);
+    async findByEmail(email: string): Promise<User | null> {
+        return await this.userRepository.findByEmail(email);
     }
 
-    static async create(user: User): Promise<User> {
-        return await UserRepository.create(user);
+    async create(user: User): Promise<User> {
+        return await this.userRepository.create(user);
     }
 
-    static async update(user: User): Promise<User> {
-        return await UserRepository.update(user);
+    async update(user: User): Promise<User> {
+        return await this.userRepository.update(user);
     }
 
-    static async delete(id: string): Promise<void> {
-        await UserRepository.delete(id);
+    async delete(id: string): Promise<void> {
+        await this.userRepository.delete(id);
     }
 }
