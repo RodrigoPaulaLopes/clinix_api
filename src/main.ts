@@ -1,6 +1,8 @@
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import routes from './routes';
+import 'reflect-metadata';
+
 dotenv.config();
 
 
@@ -28,7 +30,7 @@ export class App {
         this.app.use(express.urlencoded({ extended: true }));
     }
     public routes(): void {
-        this.app.use(routes)
+        this.app.use("/api/v1", routes)
     }
 
     private listen(): void {

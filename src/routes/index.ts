@@ -3,7 +3,7 @@ import { Router } from "express";
 
 const routes = Router();
 
-routes.use("/api/v1", (req, res) => {
+routes.use("/", (req, res) => {
     res.status(200).json({
         message: "Welcome to the Clinix API v1",
         status: "success",
