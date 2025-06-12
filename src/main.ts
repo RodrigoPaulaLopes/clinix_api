@@ -1,5 +1,6 @@
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
+import routes from './routes';
 dotenv.config();
 
 
@@ -11,6 +12,8 @@ export class App {
     private constructor() {
         this.app = express();
         this.port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+        this.middleware();
+        this.routes();
         this.listen();
     }
 
@@ -19,6 +22,13 @@ export class App {
             App.instance = new App();
         }
         return App.instance;
+    }
+    public middleware(): void {
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({ extended: true }));
+    }
+    public routes(): void {
+        this.app.use(routes)
     }
 
     private listen(): void {
