@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import { AppDataSource } from './database/data-source';
 import dotenv from 'dotenv';
 import routes from './routes';
 import 'reflect-metadata';
@@ -16,6 +17,7 @@ export class App {
         this.port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
         this.middleware();
         this.routes();
+        this.initDatabase();
         this.listen();
     }
 
@@ -31,6 +33,20 @@ export class App {
     }
     public routes(): void {
         this.app.use("/api/v1", routes)
+    }
+
+    public initDatabase(): void {
+        // Here you would typically initialize your database connection
+        // For example, using TypeORM or any other ORM
+        AppDataSource.initialize()
+            .then(() => {
+                console.log('Database connection established successfully.');
+            }
+            )
+            .catch((error) => {
+                console.error('Error during Data Source initialization:', error);
+            }
+        );
     }
 
     private listen(): void {

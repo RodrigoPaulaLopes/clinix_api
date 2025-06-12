@@ -8,3 +8,19 @@ services:
       - "${PORT}:${PORT}"
     volumes:
       - .:/app
+    depends_on:
+      - clinix_database
+  clinix_database:
+    container_name: clinix_database
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+volumes:
+  db_data:
+    driver: local
