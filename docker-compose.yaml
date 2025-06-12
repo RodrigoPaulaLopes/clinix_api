@@ -1,5 +1,6 @@
 services:
-  app:
+  clinix_api:
+    container_name: clinix_api
     build:
       context: .
       dockerfile: Dockerfile
