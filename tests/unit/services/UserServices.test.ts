@@ -9,16 +9,16 @@ describe('UserServices', () => {
     let mockUserRepository: jest.Mocked<UserRepository>;
 
     const mockUsers: User[] = [{
-            id: '1', 
-            email: '',
-            first_name: "",
-            last_name: "",
-            date_of_birth: "",
-            cpf: "",
-            password: "",
-            created_at: undefined,
-            updated_at: undefined
-        }]
+        id: '1',
+        email: '',
+        first_name: "",
+        last_name: "",
+        date_of_birth: "",
+        cpf: "",
+        password: "",
+        created_at: undefined,
+        updated_at: undefined
+    }]
 
     afterAll(() => {
         jest.clearAllMocks();
@@ -35,15 +35,17 @@ describe('UserServices', () => {
         userServices = new UserServices();
         userServices.userRepository = mockUserRepository;
 
-        
+
     });
 
-    // Add more tests here as needed
+    it("should be defined", () => {
+        expect(userServices).toBeDefined();
+    });
 
     it('should find all users', async () => {
 
         const users = await userServices.findAll();
-        
+
         expect(users).toEqual(mockUsers);
         expect(mockUserRepository.findAll).toHaveBeenCalled();
 

@@ -5,7 +5,7 @@ import { Request, Response } from "express";
 
 export default class UserController {
 
-    private userServices: UserServices;
+    public userServices: UserServices;
     constructor() {
         this.userServices = new UserServices();
     }
