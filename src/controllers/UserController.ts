@@ -5,18 +5,23 @@ import { Request, Response } from "express";
 
 export default class UserController {
 
-    static async findAll(req: Request, res: Response): Promise<void> {
+    userServices: UserServices;
+    constructor() {
+        this.userServices = new UserServices();
+    }
+
+    async findAll(req: Request, res: Response): Promise<void> {
         try {
-            const users = await UserServices.findAll();
+            const users = await this.userServices.findAll();
             res.status(200).json(users);
         } catch (error) {
             res.status(500).json({ message: "Error fetching users", error });
         }
     }
-    static async findById(req: Request, res: Response): Promise<void> {
+    async findById(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         try {
-            const user = await UserServices.findById(id);
+            const user = await this.userServices.findById(id);
             if (user) {
                 res.status(200).json(user);
             } else {
@@ -26,30 +31,30 @@ export default class UserController {
             res.status(500).json({ message: "Error fetching user", error });
         }
     }
-    static async create(req: Request, res: Response): Promise<void> {
+    async create(req: Request, res: Response): Promise<void> {
         const user: User = req.body;
         try {
-            const createdUser = await UserServices.create(user);
+            const createdUser = await this.userServices.create(user);
             res.status(201).json(createdUser);
         } catch (error) {
             res.status(500).json({ message: "Error creating user", error });
         }
     }
-    static async update(req: Request, res: Response): Promise<void> {
+    async update(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         const user: User = req.body;
         user.id = id; // Ensure the ID is set for the update
         try {
-            const updatedUser = await UserServices.update(user);
+            const updatedUser = await this.userServices.update(user);
             res.status(200).json(updatedUser);
         } catch (error) {
             res.status(500).json({ message: "Error updating user", error });
         }
     }
-    static async delete(req: Request, res: Response): Promise<void> {
+    async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         try {
-            await UserServices.delete(id);
+            await this.userServices.delete(id);
             res.status(204).send(); // No content
         } catch (error) {
             res.status(500).json({ message: "Error deleting user", error });
