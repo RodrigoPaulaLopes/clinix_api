@@ -1,4 +1,4 @@
-import {App} from "../../src/main";
+import {App} from "../src/main";
 
 describe("Should test the main file", () => {
     let app: App = App.getInstance();

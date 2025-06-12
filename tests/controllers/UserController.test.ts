@@ -1,6 +1,6 @@
-import UserController from "../../../src/controllers/UserController";
-import { User } from "../../../src/database/entities/User";
-import UserServices from "../../../src/services/UserServices";
+import UserController from "../../src/controllers/UserController";
+import { User } from "../../src/database/entities/User";
+import UserServices from "../../src/services/UserServices";
 import { Request, Response } from "express";
 
 describe("UserController", () => {  

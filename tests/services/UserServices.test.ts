@@ -1,6 +1,6 @@
-import { User } from "../../../src/database/entities/User";
-import UserRepository from "../../../src/repositories/UserRepository";
-import UserServices from "../../../src/services/UserServices";
+import { User } from "../../src/database/entities/User";
+import UserRepository from "../../src/repositories/UserRepository";
+import UserServices from "../../src/services/UserServices";
 
 
 
