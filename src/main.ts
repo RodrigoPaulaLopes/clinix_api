@@ -36,8 +36,6 @@ export class App {
     }
 
     public initDatabase(): void {
-        // Here you would typically initialize your database connection
-        // For example, using TypeORM or any other ORM
         AppDataSource.initialize()
             .then(() => {
                 console.log('Database connection established successfully.');
