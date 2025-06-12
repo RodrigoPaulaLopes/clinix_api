@@ -1,18 +1,52 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
-@Entity()
+@Entity("user")
 export class User {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @Column()
+  first_name: string;
 
-    @Column()
-    firstName: string
+  @Column()
+  last_name: string;
 
-    @Column()
-    lastName: string
+  @Column({ type: "date" })
+  date_of_birth: string;
 
-    @Column()
-    age: number
+  @Column({ unique: true, length: 15 })
+  cpf: string;
 
+  @Column({ unique: true })
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Column({ length: 15, nullable: true })
+  phone?: string;
+
+  @Column({ length: 255, nullable: true })
+  address?: string;
+
+  @Column({ length: 100, nullable: true })
+  city?: string;
+
+  @Column({ length: 50, nullable: true })
+  state?: string;
+
+  @Column({ length: 10, nullable: true })
+  zip_code?: string;
+
+  @CreateDateColumn({ type: "timestamp" })
+  created_at: Date;
+
+  @UpdateDateColumn({ type: "timestamp" })
+  updated_at: Date;
 }
