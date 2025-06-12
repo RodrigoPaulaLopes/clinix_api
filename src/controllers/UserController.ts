@@ -5,18 +5,15 @@ import { Request, Response } from "express";
 
 export default class UserController {
 
-    userServices: UserServices;
+    private userServices: UserServices;
     constructor() {
         this.userServices = new UserServices();
     }
 
     async findAll(req: Request, res: Response): Promise<void> {
-        try {
-            const users = await this.userServices.findAll();
-            res.status(200).json(users);
-        } catch (error) {
-            res.status(500).json({ message: "Error fetching users", error });
-        }
+        const users = await this.userServices.findAll();
+        res.status(200).json(users);
+
     }
     async findById(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
