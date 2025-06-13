@@ -9,8 +9,7 @@ const authenticationController = new AuthenticationController();
 
 
 const authRouter = Router();
-authRouter.post("/login", celebrate({
-  [Segments.BODY]: Joi.object().keys({
-    email: Joi.string().required(),
-    password: Joi.string().required()
-  })}) ,authenticationController.login.bind(authenticationController));
+authRouter.post("/login" ,authenticationController.login.bind(authenticationController));
+
+
+  export default authRouter;

@@ -16,8 +16,9 @@ export class App {
     private constructor() {
         this.app = express();
         this.port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-        this.routes();
         this.middleware();
+        this.routes();
+        this.app.use(apiErrorMiddleware)
         this.initDatabase();
         this.listen();
     }
@@ -29,9 +30,9 @@ export class App {
         return App.instance;
     }
     public middleware(): void {
-        this.app.use(apiErrorMiddleware)
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
+        
     }
     public routes(): void {
         this.app.use("/api/v1", routes)

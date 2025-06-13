@@ -1,6 +1,4 @@
-import { User } from "../database/entities/User";
 import AuthenticationServices from "../services/AuthenticationServices";
-import UserServices from "../services/UserServices";
 
 import { Request, Response } from "express";
 
