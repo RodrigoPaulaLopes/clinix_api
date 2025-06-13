@@ -13,24 +13,12 @@ export class User {
 
   @Column({ unique: true, nullable: false })
   auth0Id: string;
-  
-  @Column()
-  first_name: string;
-
-  @Column()
-  last_name: string;
 
   @Column({ type: "date" })
   date_of_birth: string;
 
   @Column({ unique: true, length: 15 })
   cpf: string;
-
-  @Column({ unique: true })
-  email: string;
-
-  @Column()
-  password: string;
 
   @Column({ length: 15, nullable: true })
   phone?: string;
