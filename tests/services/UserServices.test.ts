@@ -44,9 +44,11 @@ describe('UserServices', () => {
 
     it('should find all users', async () => {
 
+        const findAllSpy = jest.spyOn(userServices, 'findAll');
         const users = await userServices.findAll();
 
         expect(users).toEqual(mockUsers);
+        expect(findAllSpy).toHaveBeenCalled();
         expect(mockUserRepository.findAll).toHaveBeenCalled();
 
     })

@@ -3,6 +3,7 @@ import { AppDataSource } from './database/data-source';
 import dotenv from 'dotenv';
 import routes from './routes';
 import 'reflect-metadata';
+import apiErrorMiddleware from './middlewares/ApiError';
 
 dotenv.config();
 
@@ -15,8 +16,8 @@ export class App {
     private constructor() {
         this.app = express();
         this.port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-        this.middleware();
         this.routes();
+        this.middleware();
         this.initDatabase();
         this.listen();
     }
@@ -28,6 +29,7 @@ export class App {
         return App.instance;
     }
     public middleware(): void {
+        this.app.use(apiErrorMiddleware)
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
     }

@@ -1,4 +1,5 @@
 import { User } from "../database/entities/User";
+import APIError from "../error/ApiError";
 import UserRepository from "../repositories/UserRepository";
 
 export default class UserServices {
@@ -9,6 +10,7 @@ export default class UserServices {
         this.userRepository = new UserRepository();
     }
     async findAll(): Promise<User[]> {
+
         return await this.userRepository.findAll();
     }
 
