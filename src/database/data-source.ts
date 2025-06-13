@@ -3,6 +3,7 @@ import { DataSource } from "typeorm"
 import { User } from "./entities/User"
 import dotenv from 'dotenv'
 import { CreateUserTable1749747444548 } from "./migrations/1749747444548-CreateUserTable"
+import { AddAuth0IdInUserTables1749817141051 } from "./migrations/1749817141051-AddAuth0IdInUserTables"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -15,6 +16,9 @@ export const AppDataSource = new DataSource({
     synchronize: false,
     logging: false,
     entities: [User],
-    migrations: [CreateUserTable1749747444548],
+    migrations: [
+        CreateUserTable1749747444548, 
+        AddAuth0IdInUserTables1749817141051
+    ],
     subscribers: [],
 })
