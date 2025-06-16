@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { User } from "../database/entities/User";
 import UserRepository from "../repositories/UserRepository";
 import APIError from "../error/ApiError";
+import bcrypt from "bcrypt";
 dotenv.config();
 
 class AuthenticationServices {
@@ -30,6 +31,8 @@ class AuthenticationServices {
       throw new APIError(400, "User already exists with this CPF");
     }
     
+    user.password = bcrypt.hashSync(user.password, 10);
+
     return await this.userRepository.create(user);
   }
 
