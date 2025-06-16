@@ -14,6 +14,18 @@ export class User {
   @Column({ unique: true, nullable: false })
   auth0Id: string;
 
+  @Column({nullable: false })
+  first_name: string;
+  
+  @Column({ nullable: false })
+  last_name: string;
+
+  @Column({ unique: true, nullable: false })
+  email: string;
+
+  @Column({nullable: false })
+  password: string;
+
   @Column({ type: "date" })
   date_of_birth: string;
 
