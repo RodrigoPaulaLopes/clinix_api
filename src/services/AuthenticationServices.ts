@@ -19,10 +19,15 @@ class AuthenticationServices {
 
   }
   public async register(user: User) {
-    const existingUser = await this.userRepository.findByEmailOrCpf(user.email);
+    const existingUser = await this.userRepository.findByEmail(user.email);
 
     if (existingUser) {
-      throw new APIError(400, "User already exists with this email or CPF");
+      throw new APIError(400, "User already exists with this email");
+    }
+    
+    const existingCpf = await this.userRepository.findByCpf(user.cpf);
+    if (existingCpf) {
+      throw new APIError(400, "User already exists with this CPF");
     }
     
     return await this.userRepository.create(user);

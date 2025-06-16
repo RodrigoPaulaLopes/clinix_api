@@ -1,14 +1,14 @@
 import { Router } from "express";
 import UserController from "../controllers/UserController";
 import { celebrate, Joi, Segments } from "celebrate";
-import { checkJwt } from "../middlewares/AuthConfig";
+
 const userController = new UserController();
 const userRouter = Router();
 
 
 userRouter.get("/", userController.findAll.bind(userController));
 userRouter.get("/:id", userController.findById.bind(userController));
-userRouter.post("/", checkJwt, celebrate({
+userRouter.post("/", celebrate({
   [Segments.BODY]: Joi.object().keys({
     name: Joi.string().required(),
     age: Joi.number().integer(),

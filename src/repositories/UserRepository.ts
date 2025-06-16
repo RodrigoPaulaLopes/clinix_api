@@ -33,11 +33,6 @@ export default class UserRepository {
     async findByCpf(cpf: string): Promise<User | null> {
         return await userRepository.findOneBy({ cpf });
     }
-    async findByEmailOrCpf(emailOrCpf: string): Promise<User | null> {
-        return await userRepository.findOne({
-            where: { email, cpf }
-        });
-    }
 
     async login(emailOrCpf: string, password: string): Promise<User | null> {
     const user = await userRepository.findOne({
