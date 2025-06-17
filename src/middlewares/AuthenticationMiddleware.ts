@@ -5,15 +5,13 @@ dotenv.config();
 
 export class AuthenticationMiddleware {
   
-    userRepository: UserRepository
-
-    constructor() {
-        this.userRepository = new UserRepository();
-    }
-
     public async execute(req: any, res: any, next: any) {
-            const token = req.headers['authorization']?.split(' ')[1];
+            const [type, token] = req.headers['authorization']?.split(' ');
             
+            if (type !== 'Bearer') {
+                return res.status(401).json({ status: 'error', message: 'Invalid authorization type' });
+            }
+
             if (!token) {
                 return res.status(401).json({ status: 'error', message: 'No token provided' });
             }
