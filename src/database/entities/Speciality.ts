@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
+import { Clinic } from "./Clinic";
 
 
 
@@ -17,8 +18,11 @@ export default class Speciality {
     description?: string;
 
 
-    @ManyToOne(() => User, (user) => user.specialities, {    
+    @ManyToOne(() => User, (user) => user.specialities, {
         onDelete: "CASCADE",
     })
     user: User;
+
+    @ManyToMany(() => Clinic, (clinic) => clinic.specialities)
+    clinics: Clinic[];
 }

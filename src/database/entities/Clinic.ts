@@ -4,9 +4,13 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
 import { Address } from "./Address";
 import { DaysAvailability } from "../../enums/DaysAvailability";
+import { User } from "./User";
+import Speciality from "./Speciality";
 
 @Entity("clinic")
 export class Clinic {
@@ -36,6 +40,34 @@ export class Clinic {
 
   @Column({ default: true })
   is_active: boolean;
+
+  @ManyToMany(() => User, (user) => user.clinics)
+  @JoinTable({
+    name: "clinic_users",
+    joinColumn: {
+      name: "clinic_id",
+      referencedColumnName: "id",
+    },
+    inverseJoinColumn: {
+      name: "user_id",
+      referencedColumnName: "id",
+    },
+  })
+  doctors: User[];
+
+  @ManyToMany(() => Speciality, (speciality) => speciality.clinics)
+  @JoinTable({
+    name: "clinic_specialities",
+    joinColumn: {
+      name: "clinic_id",
+      referencedColumnName: "id",
+    },
+    inverseJoinColumn: {
+      name: "speciality_id",
+      referencedColumnName: "id",
+    },
+  })
+  specialities: Speciality[];
 
   @CreateDateColumn()
   created_at: Date;
