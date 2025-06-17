@@ -51,9 +51,6 @@ export class User {
   @Column({ type: "enum", enum: Role, default: Role.PATIENT })
   role: Role
 
-
-
-
   @OneToMany(() => Speciality, (speciality) => speciality.user, {
     cascade: true,
   })
