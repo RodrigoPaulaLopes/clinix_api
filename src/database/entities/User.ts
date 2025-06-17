@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { Role } from "../../enums/Role";
 import Speciality from "./Speciality";
+import { DoctorAvailability } from "./DoctorAvailability";
 
 @Entity("user")
 export class User {
@@ -51,10 +52,17 @@ export class User {
   role: Role
 
 
+
+
   @OneToMany(() => Speciality, (speciality) => speciality.user, {
     cascade: true,
   })
   specialties: Speciality[];
+
+  @OneToMany(() => DoctorAvailability, (doctorAvailability) => doctorAvailability.user, {
+    cascade: true,
+  })
+  availabilities: DoctorAvailability[];
 
   @CreateDateColumn({ type: "timestamp" })
   created_at: Date;

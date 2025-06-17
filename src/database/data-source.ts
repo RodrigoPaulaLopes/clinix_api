@@ -11,6 +11,8 @@ import { AddUserRoleColumn1750119791862 } from "./migrations/1750119791862-AddUs
 import { CreateSpecialtyTable1750128851545 } from "./migrations/1750128851545-CreateSpecialtyTable"
 import Speciality from "./entities/Speciality"
 import { AddRelationUserAndSpeciality1750129319177 } from "./migrations/1750129319177-AddRelationUserAndSpeciality"
+import { CreateDoctorAvailabilityTable1750131729639 } from "./migrations/1750131729639-CreateDoctorAvailabilityTable"
+import { DoctorAvailability } from "./entities/DoctorAvailability"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -22,7 +24,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME || "clinix",
     synchronize: false,
     logging: false,
-    entities: [User, Speciality],
+    entities: [User, Speciality, DoctorAvailability],
     migrations: [
         CreateUserTable1749747444548,
         AddAuth0IdInUserTables1749817141051,
@@ -31,7 +33,8 @@ export const AppDataSource = new DataSource({
         RemoveAuthIdAttr1750114541151,
         AddUserRoleColumn1750119791862,
         CreateSpecialtyTable1750128851545,
-        AddRelationUserAndSpeciality1750129319177
+        AddRelationUserAndSpeciality1750129319177,
+        CreateDoctorAvailabilityTable1750131729639
     ],
     subscribers: [],
 })
