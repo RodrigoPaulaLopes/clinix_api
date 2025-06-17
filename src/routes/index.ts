@@ -11,18 +11,22 @@ const routes = Router();
 
 const authMiddleware = new AuthenticationMiddleware()
 const adminMiddleware = new AdminMiddleware()
+routes.use("/auth", authRouter);
 
 routes.use("/users",
     authMiddleware.execute.bind(authMiddleware),
     adminMiddleware.execute.bind(adminMiddleware),
-    userRouter);
+    userRouter
+);
 
 routes.use("/profile",
     authMiddleware.execute.bind(authMiddleware),
-    profileRouter);
-
-routes.use("/auth", authRouter);
-
-routes.use("/clinic", clinicRouter);
+    profileRouter
+);
+routes.use("/clinic",
+    authMiddleware.execute.bind(authMiddleware),
+    adminMiddleware.execute.bind(adminMiddleware),
+    clinicRouter
+);
 
 export default routes;
