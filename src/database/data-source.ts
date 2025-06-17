@@ -17,6 +17,8 @@ import { RemoveAddressColumnsInUserTable1750169767691 } from "./migrations/17501
 import { AddNewAttrInUserTable1750170138319 } from "./migrations/1750170138319-AddNewAttrInUserTable"
 import { CreateClinicTable1750173343010 } from "./migrations/1750173343010-CreateClinicTable"
 import { Clinic } from "./entities/Clinic"
+import { CreateClinicDoctorTable1750177452167 } from "./migrations/1750177452167-CreateClinicDoctorTable"
+import { CreateClinicSpecialityTable1750177574401 } from "./migrations/1750177574401-CreateClinicSpecialityTable"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -41,7 +43,9 @@ export const AppDataSource = new DataSource({
         CreateDoctorAvailabilityTable1750131729639,
         RemoveAddressColumnsInUserTable1750169767691,
         AddNewAttrInUserTable1750170138319,
-        CreateClinicTable1750173343010
+        CreateClinicTable1750173343010,
+        CreateClinicDoctorTable1750177452167,
+        CreateClinicSpecialityTable1750177574401
     ],
     subscribers: [],
 })
