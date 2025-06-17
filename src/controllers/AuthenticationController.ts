@@ -21,9 +21,9 @@ export default class AuthenticationController {
     async register(req: Request, res: Response): Promise<void> {
         const body = req.body as User
 
-        const { email, password,  cpf, first_name, last_name, phone, address, city, state, zip_code, date_of_birth }  = body;
+        const { email, password,  cpf, first_name, last_name, phone, address, date_of_birth }  = body;
 
-        const data = await this.authenticationServices.register({ email, password, cpf, first_name, last_name, phone, address, city, state, zip_code, date_of_birth } as User);
+        const data = await this.authenticationServices.register({ email, password, cpf, first_name, last_name, phone, address, date_of_birth } as User);
         res.status(201).json({status: "success", message: "User create successfully!", data: data});
     }
 }
