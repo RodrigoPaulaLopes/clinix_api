@@ -41,6 +41,6 @@ export class SpecialityController {
     async delete(req: Request, res: Response) {
         const { id } = req.params;
         await this.specialityService.delete(id)
-        res.status(204)
+        res.status(204).json()
     }
 }
