@@ -51,9 +51,7 @@ class AuthenticationServices {
     return await this.userRepository.create(user);
   }
 
-  public async logout() {
-
-  }
+  
 }
 
 export default AuthenticationServices
