@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import UserRepository from '../repositories/UserRepository';
+import { NextFunction, Request, Response } from "express";
 dotenv.config();
 
 export class AuthenticationMiddleware {
   
-    public async execute(req: any, res: any, next: any) {
+    public async execute(req: Request, res: Response, next: NextFunction) {
             const [type, token] = req.headers['authorization']?.split(' ');
             
             if (type !== 'Bearer') {
