@@ -9,6 +9,8 @@ import { CreateAuthenticationAttr1750113720945 } from "./migrations/175011372094
 import { RemoveAuthIdAttr1750114541151 } from "./migrations/1750114541151-RemoveAuthIdAttr"
 import { AddUserRoleColumn1750119791862 } from "./migrations/1750119791862-AddUserRoleColumn"
 import { UpdateUserRoleColumn1750128642957 } from "./migrations/1750128642957-UpdateUserRoleColumn"
+import { CreateSpecialtyTable1750128851545 } from "./migrations/1750128851545-CreateSpecialtyTable"
+import Speciality from "./entities/Speciality"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -20,7 +22,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME || "clinix",
     synchronize: false,
     logging: false,
-    entities: [User],
+    entities: [User, Speciality],
     migrations: [
         CreateUserTable1749747444548, 
         AddAuth0IdInUserTables1749817141051,
@@ -28,7 +30,8 @@ export const AppDataSource = new DataSource({
         CreateAuthenticationAttr1750113720945, 
         RemoveAuthIdAttr1750114541151, 
         AddUserRoleColumn1750119791862,
-        UpdateUserRoleColumn1750128642957
+        UpdateUserRoleColumn1750128642957,
+        CreateSpecialtyTable1750128851545
     ],
     subscribers: [],
 })
