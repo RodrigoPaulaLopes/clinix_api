@@ -38,4 +38,29 @@ export default class ClinicController {
         await this.clinicService.delete(id);
         return res.status(204).send();
     }
-} 
+
+    async addDoctor(req: Request, res: Response) {
+        const { clinicId, doctorId } = req.body;
+        const clinic = await this.clinicService.addDoctor(clinicId, doctorId);
+        return res.status(200).json(clinic);
+    }
+
+    async removeDoctor(req: Request, res: Response) {
+        const { clinicId, doctorId } = req.body;
+        const clinic = await this.clinicService.removeDoctor(clinicId, doctorId);
+        return res.status(200).json(clinic);
+    }
+
+    async addSpecialty(req: Request, res: Response) {
+        const { clinicId, specialtyId } = req.body;
+        const clinic = await this.clinicService.addSpeciality(clinicId, specialtyId);
+        return res.status(200).json(clinic);
+    }
+
+    async removeSpecialty(req: Request, res: Response) {
+        const { clinicId, specialtyId } = req.body;
+        const clinic = await this.clinicService.removeSpeciality(clinicId, specialtyId);
+        return res.status(200).json(clinic);
+    }
+    
+    } 

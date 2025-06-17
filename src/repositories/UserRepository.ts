@@ -65,4 +65,13 @@ export default class UserRepository {
         return foundDoctors;
     }
 
+    async findDoctorById(id: string) : Promise<User> {
+        return await userRepository.findOne({
+            where: {
+                id: id,
+                role: Role.DOCTOR
+            }
+        })
+    }
+
 }

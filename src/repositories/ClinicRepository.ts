@@ -23,7 +23,10 @@ export default class ClinicRepository {
     }
 
     async findById(id: string): Promise<Clinic | null> {
-        return await userRepository.findOneBy({ id });
+        return await userRepository.findOne({
+            where: { id },
+            relations: ["doctors", "specialities"],
+        });
     }
 
     async create(clinic: Omit<Clinic, "id">): Promise<Clinic> {
@@ -49,4 +52,6 @@ export default class ClinicRepository {
     async findByEmail(email: string): Promise<Clinic | null> {
         return await userRepository.findOneBy({email})
     }
+
+
 }
