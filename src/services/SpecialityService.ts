@@ -25,9 +25,6 @@ export class SpecialityService {
     }
 
     async create(speciality: Omit<Speciality, 'id'>): Promise<Speciality> {
-
-
-        // verify if speciality exists with name
         if (await this.specialityRepository.findByName(speciality.name)) {
             throw new APIError(404, "Speciality already exists!")
         }
@@ -37,7 +34,7 @@ export class SpecialityService {
     }
 
     async update(id: string, speciality: Partial<Omit<Speciality, 'id'>>): Promise<Speciality> {
-        // verify if speciality exists with name
+
         if (!await this.specialityRepository.findById(id)) {
             throw new APIError(404, "Speciality not found!")
         }
@@ -47,7 +44,7 @@ export class SpecialityService {
     }
 
     async delete(id: string): Promise<void> {
-        // verify if speciality exists with name
+
         if (!await this.specialityRepository.findById(id)) {
             throw new APIError(404, "Speciality not found!")
         }
