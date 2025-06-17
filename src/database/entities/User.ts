@@ -54,7 +54,7 @@ export class User {
   @OneToMany(() => Speciality, (speciality) => speciality.user, {
     cascade: true,
   })
-  specialties: Speciality[];
+  specialities: Speciality[];
 
   @OneToMany(() => DoctorAvailability, (doctorAvailability) => doctorAvailability.user, {
     cascade: true,

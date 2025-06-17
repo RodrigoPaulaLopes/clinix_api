@@ -8,7 +8,12 @@ const userRepository = AppDataSource.getRepository(User);
 export default class UserRepository {
 
     async findAll(): Promise<User[]> {
-        return await userRepository.find();
+        return await userRepository.find({
+            relations: {
+                specialities: true,
+                availabilities: true
+            }
+        });
     }
     async findById(id: string): Promise<User | null> {
         return await userRepository.findOneBy({ id });

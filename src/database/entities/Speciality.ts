@@ -17,12 +17,8 @@ export default class Speciality {
     description?: string;
 
 
-    @ManyToOne(() => User, (user) => user.specialties, {    
+    @ManyToOne(() => User, (user) => user.specialities, {    
         onDelete: "CASCADE",
     })
     user: User;
-    @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-    createdAt: Date;
-    @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP" })
-    updatedAt: Date;
 }
