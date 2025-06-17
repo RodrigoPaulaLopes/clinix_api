@@ -45,7 +45,7 @@ export class User {
   @Column({ length: 10, nullable: true })
   zip_code?: string;
 
-  @Column({ type: "enum", enum: Role, default: Role.USER })
+  @Column({ type: "enum", enum: Role, default: Role.PATIENT })
   role: Role
 
   @CreateDateColumn({ type: "timestamp" })

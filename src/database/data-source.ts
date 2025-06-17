@@ -8,6 +8,7 @@ import { RemoveUserFirstAndLastNameEmailPassword1749817414234 } from "./migratio
 import { CreateAuthenticationAttr1750113720945 } from "./migrations/1750113720945-CreateAuthenticationAttr"
 import { RemoveAuthIdAttr1750114541151 } from "./migrations/1750114541151-RemoveAuthIdAttr"
 import { AddUserRoleColumn1750119791862 } from "./migrations/1750119791862-AddUserRoleColumn"
+import { UpdateUserRoleColumn1750128642957 } from "./migrations/1750128642957-UpdateUserRoleColumn"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -26,7 +27,8 @@ export const AppDataSource = new DataSource({
         RemoveUserFirstAndLastNameEmailPassword1749817414234,
         CreateAuthenticationAttr1750113720945, 
         RemoveAuthIdAttr1750114541151, 
-        AddUserRoleColumn1750119791862
+        AddUserRoleColumn1750119791862,
+        UpdateUserRoleColumn1750128642957
     ],
     subscribers: [],
 })
