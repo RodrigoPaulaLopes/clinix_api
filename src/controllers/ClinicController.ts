@@ -1,5 +1,4 @@
 import { Clinic } from "../database/entities/Clinic";
-import { ICreateClinicDTO } from "../interfaces/ClinicCreate";
 import ClinicService from "../services/ClinicService";
 import {Request, Response} from 'express'
 export default class ClinicController {

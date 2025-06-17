@@ -1,6 +1,5 @@
 import { Clinic } from "../database/entities/Clinic";
 import APIError from "../error/ApiError";
-import { ICreateClinicDTO } from "../interfaces/ClinicCreate";
 import ClinicRepository from "../repositories/ClinicRepository";
 import { SpecialityRepository } from "../repositories/SpecialityRepository";
 import UserRepository from "../repositories/UserRepository";
