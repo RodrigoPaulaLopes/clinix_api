@@ -25,6 +25,10 @@ export class SpecialityRepository {
         return await this.specialityRepository.findOneBy({ id });
     }
 
+    async findByName(name: string) : Promise<Speciality | null> {
+        return await this.specialityRepository.findOneBy({ name });
+    }
+
     async update(id: string, data: Partial<Speciality>): Promise<Speciality | null> {
         await this.specialityRepository.update(id, data);
         return await this.findById(id);
