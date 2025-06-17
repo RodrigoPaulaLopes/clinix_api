@@ -3,9 +3,13 @@ import { SpecialityService } from '../services/SpecialityService';
 import Speciality from '../database/entities/Speciality';
 
 
-class SpecialityController {
+export class SpecialityController {
 
     specialityService: SpecialityService
+
+    constructor(){
+        this.specialityService = new SpecialityService()
+    }
 
     async index(req: Request, res: Response) {
         const specialities = this.specialityService.index()
@@ -41,5 +45,3 @@ class SpecialityController {
         return res.status(204)
     }
 }
-
-export default new SpecialityController();

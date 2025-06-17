@@ -5,6 +5,7 @@ import { AuthenticationMiddleware } from "../middlewares/AuthenticationMiddlewar
 import { AdminMiddleware } from "../middlewares/AdminMiddleware";
 import profileRouter from "./ProfileRouter";
 import clinicRouter from "./ClinicRouter";
+import specialityRouter from "./SpecialityRouter";
 
 const routes = Router();
 
@@ -28,5 +29,11 @@ routes.use("/clinic",
     adminMiddleware.execute.bind(adminMiddleware),
     clinicRouter
 );
+
+routes.use("/speciality", 
+    authMiddleware.execute.bind(authMiddleware),
+    adminMiddleware.execute.bind(adminMiddleware),
+    specialityRouter
+)
 
 export default routes;
