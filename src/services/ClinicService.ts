@@ -34,6 +34,13 @@ export default class ClinicService {
             throw new APIError(400, "Clinic with this email already exists");
         }
 
+        // add specialities
+
+        
+
+        // add doctors 
+
+        
         return await this.clinicRepository.create(clinic);
     }
     async update(id: string, clinic: Clinic) {
