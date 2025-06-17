@@ -2,7 +2,7 @@ import Speciality from "../database/entities/Speciality";
 import APIError from "../error/ApiError";
 import { SpecialityRepository } from "../repositories/SpecialityRepository";
 
-class SpecialityService {
+export class SpecialityService {
 
 
     specialityRepository: SpecialityRepository
@@ -10,11 +10,11 @@ class SpecialityService {
     constructor() {
         this.specialityRepository = new SpecialityRepository()
     }
-    async getAll(): Promise<Speciality[]> {
+    async index(): Promise<Speciality[]> {
         return await this.specialityRepository.findAll()
     }
 
-    async getById(id: string): Promise<Speciality> {
+    async show(id: string): Promise<Speciality> {
 
         const speciality = await this.specialityRepository.findById(id)
 
@@ -53,9 +53,5 @@ class SpecialityService {
         }
 
         await this.specialityRepository.delete(id)
-
-
     }
 }
-
-export default new SpecialityService();
