@@ -16,6 +16,7 @@ import { DoctorAvailability } from "./entities/DoctorAvailability"
 import { RemoveAddressColumnsInUserTable1750169767691 } from "./migrations/1750169767691-RemoveAddressColumnsInUserTable"
 import { AddNewAttrInUserTable1750170138319 } from "./migrations/1750170138319-AddNewAttrInUserTable"
 import { CreateClinicTable1750173343010 } from "./migrations/1750173343010-CreateClinicTable"
+import { Clinic } from "./entities/Clinic"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -27,7 +28,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME || "clinix",
     synchronize: false,
     logging: false,
-    entities: [User, Speciality, DoctorAvailability],
+    entities: [User, Speciality, DoctorAvailability, Clinic],
     migrations: [
         CreateUserTable1749747444548,
         AddAuth0IdInUserTables1749817141051,
