@@ -17,7 +17,6 @@ export class SpecialityController {
     }
 
     async show(req: Request, res: Response) {
-        // Get a single speciality by ID
         const { id } = req.params;
 
         const specialities = await this.specialityService.show(id)
