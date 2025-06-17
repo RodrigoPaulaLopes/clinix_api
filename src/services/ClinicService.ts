@@ -63,10 +63,10 @@ export default class ClinicService {
     }
     async update(id: string, clinic: Clinic) {
 
-        if (!await this.clinicRepository.findById(id)) {
+        const existingClinic = await this.clinicRepository.findById(id);
+        if (!existingClinic) {
             throw new APIError(404, "Clinic with this id doesn't exist");
         }
-
         const existingClinicByCnpj = await this.clinicRepository.findByCnpj(clinic.cnpj);
         if (existingClinicByCnpj && existingClinicByCnpj.id !== id) {
             throw new APIError(400, "Cannot use CNPJ from another company");
@@ -77,10 +77,33 @@ export default class ClinicService {
             throw new APIError(400, "Cannot use name from another company");
         }
 
-        const existingClinicByEmail = await this.clinicRepository.findByEmail(clinic.email);
-        if (existingClinicByEmail && existingClinicByEmail.id !== id) {
+        if (clinic.email) {
+            const existingClinicByEmail = await this.clinicRepository.findByEmail(clinic.email);
+            if (existingClinicByEmail && existingClinicByEmail.id !== id) {
             throw new APIError(400, "Cannot use email from another company");
+            }
         }
+
+        if (clinic.specialities && clinic.specialities.length > 0) {
+            const specialityIds = clinic.specialities.map(s => s.id);
+            const foundSpecialities = await this.specialityRepository.findSpecialitiesByIds(specialityIds);
+            if (foundSpecialities.length !== specialityIds.length) {
+            const foundIds = foundSpecialities.map(s => s.id);
+            const missingIds = specialityIds.filter(id => !foundIds.includes(id));
+            throw new APIError(404, `Specialities not found for IDs: ${missingIds.join(", ")}`);
+            }
+        }
+
+        if (clinic.doctors && clinic.doctors.length > 0) {
+            const doctorIds = clinic.doctors.map(d => d.id);
+            const foundDoctors = await this.userRepository.findDoctorsByIds(doctorIds);
+            if (foundDoctors.length !== doctorIds.length) {
+            const foundIds = foundDoctors.map(d => d.id);
+            const missingIds = doctorIds.filter(id => !foundIds.includes(id));
+            throw new APIError(404, `Doctors not found for IDs: ${missingIds.join(", ")}`);
+            }
+        }
+
         return await this.clinicRepository.update(id, clinic);
     }
     async delete(id: string) {
