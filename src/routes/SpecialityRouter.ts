@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ClincValidator from "../utils/validators/ClinicValidator";
+import SpecialityValidator from "../utils/validators/SpecialityValidator";
 import {SpecialityController} from "../controllers/SpecialityController";
 
 const specialityRouter = Router();
@@ -10,13 +10,13 @@ const specialityController = new SpecialityController()
 
 specialityRouter.post(
     "/",
-    ClincValidator.create(),
+    SpecialityValidator.create(),
     specialityController.create.bind(specialityController)
 );
 
 specialityRouter.put(
     "/:id",
-    ClincValidator.update(),
+    SpecialityValidator.update(),
     specialityController.update.bind(specialityController)
 );
 
@@ -24,13 +24,13 @@ specialityRouter.get("/",
     specialityController.index.bind(specialityController)
 );
 specialityRouter.get("/:id",
-    ClincValidator.find(),
+    SpecialityValidator.find(),
     specialityController.show.bind(specialityController)
 );
 
 specialityRouter.delete(
     "/:id",
-    ClincValidator.find(),
+    SpecialityValidator.find(),
     specialityController.delete.bind(specialityController)
 );
 
