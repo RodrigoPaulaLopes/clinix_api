@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./User";
+import { Clinic } from "./Clinic";
 
 
 
@@ -17,8 +18,15 @@ export default class Speciality {
     description?: string;
 
 
-    @ManyToOne(() => User, (user) => user.specialities, {    
-        onDelete: "CASCADE",
-    })
-    user: User;
+    @ManyToMany(() => User, (user) => user.specialities)
+    users: User[];
+
+    @ManyToMany(() => Clinic, (clinic) => clinic.specialities)
+    clinics: Clinic[];
+
+    @CreateDateColumn({ type: "timestamp"})
+    created_at: Date;
+
+    @UpdateDateColumn({ type: "timestamp"})
+    updated_at: Date;
 }

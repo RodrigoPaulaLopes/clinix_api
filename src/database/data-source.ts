@@ -15,6 +15,14 @@ import { CreateDoctorAvailabilityTable1750131729639 } from "./migrations/1750131
 import { DoctorAvailability } from "./entities/DoctorAvailability"
 import { RemoveAddressColumnsInUserTable1750169767691 } from "./migrations/1750169767691-RemoveAddressColumnsInUserTable"
 import { AddNewAttrInUserTable1750170138319 } from "./migrations/1750170138319-AddNewAttrInUserTable"
+import { CreateClinicTable1750173343010 } from "./migrations/1750173343010-CreateClinicTable"
+import { Clinic } from "./entities/Clinic"
+import { CreateClinicDoctorTable1750177452167 } from "./migrations/1750177452167-CreateClinicDoctorTable"
+import { CreateClinicSpecialityTable1750177574401 } from "./migrations/1750177574401-CreateClinicSpecialityTable"
+import { RemoveUserIdFromSpeciality1750181017149 } from "./migrations/1750181017149-RemoveUserIdFromSpeciality"
+import { CreateUserSpecialitiesPivotTable1750181075772 } from "./migrations/1750181075772-CreateUserSpecialitiesPivotTable"
+import { AlterCreatedAtAndUpdatedAtColumnInSpeciality1750185316805 } from "./migrations/1750185316805-AlterCreatedAtAndUpdatedAtColumnInSpeciality"
+import { CreateNewCreatedAtAndUpdatedAtColumnInSpeciality1750185538791 } from "./migrations/1750185538791-CreateNewCreatedAtAndUpdatedAtColumnInSpeciality"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -26,7 +34,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME || "clinix",
     synchronize: false,
     logging: false,
-    entities: [User, Speciality, DoctorAvailability],
+    entities: [User, Speciality, DoctorAvailability, Clinic],
     migrations: [
         CreateUserTable1749747444548,
         AddAuth0IdInUserTables1749817141051,
@@ -38,7 +46,14 @@ export const AppDataSource = new DataSource({
         AddRelationUserAndSpeciality1750129319177,
         CreateDoctorAvailabilityTable1750131729639,
         RemoveAddressColumnsInUserTable1750169767691,
-        AddNewAttrInUserTable1750170138319
+        AddNewAttrInUserTable1750170138319,
+        CreateClinicTable1750173343010,
+        CreateClinicDoctorTable1750177452167,
+        CreateClinicSpecialityTable1750177574401,
+        RemoveUserIdFromSpeciality1750181017149,
+        CreateUserSpecialitiesPivotTable1750181075772, 
+        AlterCreatedAtAndUpdatedAtColumnInSpeciality1750185316805,
+        CreateNewCreatedAtAndUpdatedAtColumnInSpeciality1750185538791
     ],
     subscribers: [],
 })

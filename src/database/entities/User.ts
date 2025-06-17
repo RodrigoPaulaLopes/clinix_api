@@ -5,27 +5,30 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
 import { Role } from "../../enums/Role";
 import Speciality from "./Speciality";
 import { DoctorAvailability } from "./DoctorAvailability";
 import { Address } from "./Address";
+import { Clinic } from "./Clinic";
 
 @Entity("user")
 export class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({nullable: false })
+  @Column({ nullable: false })
   first_name: string;
-  
+
   @Column({ nullable: false })
   last_name: string;
 
   @Column({ unique: true, nullable: false })
   email: string;
 
-  @Column({nullable: false })
+  @Column({ nullable: false })
   password: string;
 
   @Column({ type: "date" })
@@ -43,8 +46,11 @@ export class User {
   @Column({ type: "enum", enum: Role, default: Role.PATIENT })
   role: Role
 
-  @OneToMany(() => Speciality, (speciality) => speciality.user, {
-    cascade: true,
+  @ManyToMany(() => Speciality, (speciality) => speciality.users)
+  @JoinTable({
+    name: "user_specialities",
+    joinColumn: { name: "user_id", referencedColumnName: "id" },
+    inverseJoinColumn: { name: "speciality_id", referencedColumnName: "id" },
   })
   specialities: Speciality[];
 
@@ -52,6 +58,9 @@ export class User {
     cascade: true,
   })
   availabilities: DoctorAvailability[];
+
+  @ManyToMany(() => Clinic, (clinic) => clinic.doctors)
+  clinics: Clinic[];
 
   @CreateDateColumn({ type: "timestamp" })
   created_at: Date;
@@ -63,5 +72,5 @@ export class User {
   public isAdmin(): boolean {
     return this.role === Role.ADMIN;
   }
-    
+
 }
