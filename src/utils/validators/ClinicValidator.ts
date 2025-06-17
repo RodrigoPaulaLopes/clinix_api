@@ -2,10 +2,10 @@ import { celebrate, Joi, Segments } from "celebrate";
 import { DaysAvailability } from "../../enums/DaysAvailability";
 
 
-export default class ClincValidator {
+export class ClincValidator {
 
 
-    public static create(){
+    public static create() {
         return celebrate({
             [Segments.BODY]: Joi.object({
                 name: Joi.string().max(100).required(),
@@ -36,15 +36,15 @@ export default class ClincValidator {
         });
     }
 
-    public static find(){
-        return  celebrate({
-        [Segments.PARAMS]: Joi.object().keys({
-            id: Joi.string().required()
+    public static find() {
+        return celebrate({
+            [Segments.PARAMS]: Joi.object().keys({
+                id: Joi.string().required()
+            })
         })
-    })
     }
 
-    public static update(){
+    public static update() {
         return celebrate({
             [Segments.PARAMS]: Joi.object({
                 id: Joi.string().required()
@@ -77,4 +77,51 @@ export default class ClincValidator {
             }),
         });
     }
-} 
+}
+
+
+export class ClinicDoctorValidation {
+    public static create() {
+        return celebrate({
+            [Segments.PARAMS]: Joi.object({
+                id: Joi.string().required()
+            }),
+            [Segments.BODY]: Joi.object({
+                doctorsId: Joi.string().required(),
+
+            }),
+        });
+    }
+
+    public static delete() {
+        return celebrate({
+            [Segments.PARAMS]: Joi.object({
+                id: Joi.string().required(),
+                doctorId: Joi.string().required()
+            }),
+        });
+    }
+}
+
+export class ClinicSpecialitiesValidation {
+    public static create() {
+        return celebrate({
+            [Segments.PARAMS]: Joi.object({
+                id: Joi.string().required()
+            }),
+            [Segments.BODY]: Joi.object({
+                specialityId: Joi.string().required(),
+
+            }),
+        });
+    }
+    public static delete() {
+        return celebrate({
+            [Segments.PARAMS]: Joi.object({
+                id: Joi.string().required(),
+                specialtyId: Joi.string().required()
+            }),
+        });
+    }
+
+}
