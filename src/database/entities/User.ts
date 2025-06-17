@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Role } from "../../enums/Role";
 
 @Entity("user")
 export class User {
@@ -44,9 +45,18 @@ export class User {
   @Column({ length: 10, nullable: true })
   zip_code?: string;
 
+  @Column({ type: "enum", enum: Role, default: Role.USER })
+  role: Role
+
   @CreateDateColumn({ type: "timestamp" })
   created_at: Date;
 
   @UpdateDateColumn({ type: "timestamp" })
   updated_at: Date;
+
+
+  public isAdmin(): boolean {
+    return this.role === Role.ADMIN;
+  }
+    
 }
