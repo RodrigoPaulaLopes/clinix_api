@@ -21,6 +21,12 @@ export default class ClincValidator {
                     country: Joi.string().max(100).required(),
                     complement: Joi.string().max(100).optional(),
                 }).required(),
+                doctors: Joi.array().items(Joi.object({
+                    id: Joi.string()
+                })),
+                specialities: Joi.array().items(Joi.object({
+                    id: Joi.string()
+                })),
                 opening_hours: Joi.string().max(50).optional(),
                 days_open: Joi.array()
                     .items(Joi.string().valid(...Object.values(DaysAvailability)))

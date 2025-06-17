@@ -1,13 +1,20 @@
 import { Clinic } from "../database/entities/Clinic";
 import APIError from "../error/ApiError";
+import { ICreateClinicDTO } from "../interfaces/ClinicCreate";
 import ClinicRepository from "../repositories/ClinicRepository";
+import { SpecialityRepository } from "../repositories/SpecialityRepository";
+import UserRepository from "../repositories/UserRepository";
 
 export default class ClinicService {
 
     clinicRepository: ClinicRepository;
+    specialityRepository: SpecialityRepository;
+    userRepository: UserRepository
 
     constructor() {
         this.clinicRepository = new ClinicRepository();
+        this.specialityRepository = new SpecialityRepository()
+        this.userRepository = new UserRepository()
     }
 
     async findAll() {
@@ -21,26 +28,38 @@ export default class ClinicService {
         }
         return clinic
     }
-    async create(clinic: Clinic) {
-
+    async create(clinic: Omit<Clinic, "id">) {
         if (await this.clinicRepository.findByName(clinic.name)) {
             throw new APIError(400, "Clinic with this name already exists");
         }
+
         if (await this.clinicRepository.findByCnpj(clinic.cnpj)) {
             throw new APIError(400, "Clinic with this CNPJ already exists");
         }
 
-        if (await this.clinicRepository.findByEmail(clinic.email)) {
+        if (clinic.email && await this.clinicRepository.findByEmail(clinic.email)) {
             throw new APIError(400, "Clinic with this email already exists");
         }
 
-        // add specialities
+        const specialityIds = clinic.specialities.map(s => s.id);
+        const foundSpecialities = await this.specialityRepository.findSpecialitiesByIds(specialityIds);
 
+        if (foundSpecialities.length !== specialityIds.length) {
+            const foundIds = foundSpecialities.map(s => s.id);
+            const missingIds = specialityIds.filter(id => !foundIds.includes(id));
+            throw new APIError(404, `Specialities not found for IDs: ${missingIds.join(", ")}`);
+        }
         
-
-        // add doctors 
-
+        const doctorIds = clinic.doctors.map(d => d.id);
         
+        const foundDoctors = await this.userRepository.findDoctorsByIds(doctorIds);
+
+        if (foundDoctors.length !== doctorIds.length) {
+            const foundIds = foundDoctors.map(d => d.id);
+            const missingIds = doctorIds.filter(id => !foundIds.includes(id));
+            throw new APIError(404, `Doctors not found for IDs: ${missingIds.join(", ")}`);
+        }
+
         return await this.clinicRepository.create(clinic);
     }
     async update(id: string, clinic: Clinic) {

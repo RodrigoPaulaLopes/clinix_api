@@ -26,7 +26,7 @@ export default class ClinicRepository {
         return await userRepository.findOneBy({ id });
     }
 
-    async create(clinic: Clinic): Promise<Clinic> {
+    async create(clinic: Omit<Clinic, "id">): Promise<Clinic> {
         return await userRepository.save(clinic);
     }
 

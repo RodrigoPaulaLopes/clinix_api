@@ -1,5 +1,7 @@
+import { Clinic } from "../database/entities/Clinic";
+import { ICreateClinicDTO } from "../interfaces/ClinicCreate";
 import ClinicService from "../services/ClinicService";
-
+import {Request, Response} from 'express'
 export default class ClinicController {
 
     clinicService: ClinicService
@@ -7,31 +9,32 @@ export default class ClinicController {
         this.clinicService = new ClinicService();
     }
 
-    async findAll(req: any, res: any) {
+    async findAll(req: Request, res: Response) {
         const clinics = await this.clinicService.findAll();
         res.status(200).json(clinics);
     }
 
-    async findById(req: any, res: any) {
+    async findById(req: Request, res: Response) {
         const { id } = req.params;
         const clinic = await this.clinicService.findById(id);
 
         return res.status(200).json(clinic);
 
     }
-    async create(req: any, res: any) {
-        const clinicData = req.body;
+    async create(req: Request, res: Response) {
+        const clinicData = req.body as Omit<Clinic, "id">
+
         const clinic = await this.clinicService.create(clinicData);
         return res.status(201).json(clinic);
     }
-    async update(req: any, res: any) {
+    async update(req: Request, res: Response) {
         const { id } = req.params;
         const clinicData = req.body;
         const updatedClinic = await this.clinicService.update(id, clinicData);
 
         return res.status(200).json(updatedClinic);
     }
-    async delete(req: any, res: any) {
+    async delete(req: Request, res: Response) {
         const { id } = req.params;
         await this.clinicService.delete(id);
         return res.status(204).send();

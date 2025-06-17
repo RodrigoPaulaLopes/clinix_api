@@ -1,6 +1,7 @@
-import { Repository } from "typeorm";
+import { Repository, In } from "typeorm";
 import { AppDataSource } from "../database/data-source";
 import Speciality from "../database/entities/Speciality";
+import APIError from "../error/ApiError";
 
 const specialityRepository = AppDataSource.getRepository(Speciality)
 
@@ -27,6 +28,14 @@ export class SpecialityRepository {
 
     async findByName(name: string) : Promise<Speciality | null> {
         return await this.specialityRepository.findOneBy({ name });
+    }
+
+    async findSpecialitiesByIds(ids: string[]): Promise<Speciality[]> {
+        return await this.specialityRepository.find({
+            where: {
+                id: In(ids)
+            }
+        });
     }
 
     async update(id: string, data: Partial<Speciality>): Promise<Speciality | null> {

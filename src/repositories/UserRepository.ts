@@ -1,7 +1,9 @@
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { AppDataSource } from "../database/data-source";
 import { User } from "../database/entities/User";
 import { App } from "../main";
+import { Role } from "../enums/Role";
+import APIError from "../error/ApiError";
 
 const userRepository = AppDataSource.getRepository(User);
 
@@ -41,13 +43,26 @@ export default class UserRepository {
     }
 
     async login(emailOrCpf: string, password: string): Promise<User | null> {
-    const user = await userRepository.findOne({
-      where: [
-        { email: emailOrCpf, password },
-        { cpf: emailOrCpf, password }
-      ]
-    });
+        const user = await userRepository.findOne({
+            where: [
+                { email: emailOrCpf, password },
+                { cpf: emailOrCpf, password }
+            ]
+        });
 
-    return user ?? null;
-  }
+        return user ?? null;
+    }
+
+    async findDoctorsByIds(ids: string[]): Promise<User[]> {
+
+        const foundDoctors = await userRepository.find({
+            where: {
+                id: In(ids),
+                role: Role.DOCTOR
+            }
+        });
+
+        return foundDoctors;
+    }
+
 }
