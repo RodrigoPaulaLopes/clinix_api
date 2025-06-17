@@ -19,7 +19,7 @@ export class AdminMiddleware {
         const user = await this.userRepository.findById(payload.id)
         
 
-        if (!user || !user.isAdmin) {
+        if (!user || !user.isAdmin()) {
             return res.status(403).json({ status: 'error', message: 'Access denied. Admins only.' });
         }
 
