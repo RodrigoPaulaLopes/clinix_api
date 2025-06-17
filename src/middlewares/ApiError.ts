@@ -12,7 +12,7 @@ const apiErrorMiddleware = (err: Error | APIError, req: Request, res: Response, 
     }
     return res.status(500).json({
         status: 500,
-        message: 'Internal Server Error'
+        message: err.message || 'Internal Server Error'
     });
 
 }

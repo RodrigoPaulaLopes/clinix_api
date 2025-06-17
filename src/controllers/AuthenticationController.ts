@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import { User } from "../database/entities/User";
 import AuthenticationServices from "../services/AuthenticationServices";
 
@@ -13,7 +14,7 @@ export default class AuthenticationController {
     async login(req: Request, res: Response): Promise<void> {
         const { email, password } = req.body;
         const token = await this.authenticationServices.login(email, password);
-        res.status(200).json(token);
+        res.status(200).json({status: "success", message: "User logged in successfully!", token: token});
 
     }
 
