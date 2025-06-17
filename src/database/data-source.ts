@@ -3,6 +3,18 @@ import { DataSource } from "typeorm"
 import { User } from "./entities/User"
 import dotenv from 'dotenv'
 import { CreateUserTable1749747444548 } from "./migrations/1749747444548-CreateUserTable"
+import { AddAuth0IdInUserTables1749817141051 } from "./migrations/1749817141051-AddAuth0IdInUserTables"
+import { RemoveUserFirstAndLastNameEmailPassword1749817414234 } from "./migrations/1749817414234-RemoveUserFirstAndLastNameEmailPassword"
+import { CreateAuthenticationAttr1750113720945 } from "./migrations/1750113720945-CreateAuthenticationAttr"
+import { RemoveAuthIdAttr1750114541151 } from "./migrations/1750114541151-RemoveAuthIdAttr"
+import { AddUserRoleColumn1750119791862 } from "./migrations/1750119791862-AddUserRoleColumn"
+import { CreateSpecialtyTable1750128851545 } from "./migrations/1750128851545-CreateSpecialtyTable"
+import Speciality from "./entities/Speciality"
+import { AddRelationUserAndSpeciality1750129319177 } from "./migrations/1750129319177-AddRelationUserAndSpeciality"
+import { CreateDoctorAvailabilityTable1750131729639 } from "./migrations/1750131729639-CreateDoctorAvailabilityTable"
+import { DoctorAvailability } from "./entities/DoctorAvailability"
+import { RemoveAddressColumnsInUserTable1750169767691 } from "./migrations/1750169767691-RemoveAddressColumnsInUserTable"
+import { AddNewAttrInUserTable1750170138319 } from "./migrations/1750170138319-AddNewAttrInUserTable"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -14,7 +26,19 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME || "clinix",
     synchronize: false,
     logging: false,
-    entities: [User],
-    migrations: [CreateUserTable1749747444548],
+    entities: [User, Speciality, DoctorAvailability],
+    migrations: [
+        CreateUserTable1749747444548,
+        AddAuth0IdInUserTables1749817141051,
+        RemoveUserFirstAndLastNameEmailPassword1749817414234,
+        CreateAuthenticationAttr1750113720945,
+        RemoveAuthIdAttr1750114541151,
+        AddUserRoleColumn1750119791862,
+        CreateSpecialtyTable1750128851545,
+        AddRelationUserAndSpeciality1750129319177,
+        CreateDoctorAvailabilityTable1750131729639,
+        RemoveAddressColumnsInUserTable1750169767691,
+        AddNewAttrInUserTable1750170138319
+    ],
     subscribers: [],
 })

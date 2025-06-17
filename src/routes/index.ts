@@ -1,17 +1,25 @@
 import { Router } from "express";
-
+import userRouter from "./UserRouter";
+import authRouter from "./AuthenticationRouter";
+import { AuthenticationMiddleware } from "../middlewares/AuthenticationMiddleware";
+import { AdminMiddleware } from "../middlewares/AdminMiddleware";
+import profileRouter from "./ProfileRouter";
 
 const routes = Router();
 
-routes.use("/", (req, res) => {
-    res.status(200).json({
-        message: "Welcome to the Clinix API v1",
-        status: "success",
-        data: {
-            version: "1.0.0",
-            description: "This is the first version of the Clinix API",
-        },
-    });
-});
+
+const authMiddleware = new AuthenticationMiddleware()
+const adminMiddleware = new AdminMiddleware()
+
+routes.use("/users", 
+    authMiddleware.execute.bind(authMiddleware), 
+    adminMiddleware.execute.bind(adminMiddleware), 
+    userRouter);
+
+routes.use("/profile",
+    authMiddleware.execute.bind(authMiddleware), 
+    profileRouter);
+    
+routes.use("/auth", authRouter);
 
 export default routes;

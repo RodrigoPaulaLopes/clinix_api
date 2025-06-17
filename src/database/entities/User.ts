@@ -4,18 +4,29 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
+import { Role } from "../../enums/Role";
+import Speciality from "./Speciality";
+import { DoctorAvailability } from "./DoctorAvailability";
+import { Address } from "./Address";
 
 @Entity("user")
 export class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column()
+  @Column({nullable: false })
   first_name: string;
-
-  @Column()
+  
+  @Column({ nullable: false })
   last_name: string;
+
+  @Column({ unique: true, nullable: false })
+  email: string;
+
+  @Column({nullable: false })
+  password: string;
 
   @Column({ type: "date" })
   date_of_birth: string;
@@ -23,30 +34,34 @@ export class User {
   @Column({ unique: true, length: 15 })
   cpf: string;
 
-  @Column({ unique: true })
-  email: string;
-
-  @Column()
-  password: string;
-
   @Column({ length: 15, nullable: true })
   phone?: string;
 
-  @Column({ length: 255, nullable: true })
-  address?: string;
+  @Column(() => Address, { prefix: "" })
+  address: Address;
 
-  @Column({ length: 100, nullable: true })
-  city?: string;
+  @Column({ type: "enum", enum: Role, default: Role.PATIENT })
+  role: Role
 
-  @Column({ length: 50, nullable: true })
-  state?: string;
+  @OneToMany(() => Speciality, (speciality) => speciality.user, {
+    cascade: true,
+  })
+  specialities: Speciality[];
 
-  @Column({ length: 10, nullable: true })
-  zip_code?: string;
+  @OneToMany(() => DoctorAvailability, (doctorAvailability) => doctorAvailability.user, {
+    cascade: true,
+  })
+  availabilities: DoctorAvailability[];
 
   @CreateDateColumn({ type: "timestamp" })
   created_at: Date;
 
   @UpdateDateColumn({ type: "timestamp" })
   updated_at: Date;
+
+
+  public isAdmin(): boolean {
+    return this.role === Role.ADMIN;
+  }
+    
 }
