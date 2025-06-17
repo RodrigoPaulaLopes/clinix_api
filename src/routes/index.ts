@@ -12,6 +12,7 @@ const routes = Router();
 
 const authMiddleware = new AuthenticationMiddleware()
 const adminMiddleware = new AdminMiddleware()
+
 routes.use("/auth", authRouter);
 
 routes.use("/users",
