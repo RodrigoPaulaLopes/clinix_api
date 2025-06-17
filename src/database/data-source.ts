@@ -19,6 +19,8 @@ import { CreateClinicTable1750173343010 } from "./migrations/1750173343010-Creat
 import { Clinic } from "./entities/Clinic"
 import { CreateClinicDoctorTable1750177452167 } from "./migrations/1750177452167-CreateClinicDoctorTable"
 import { CreateClinicSpecialityTable1750177574401 } from "./migrations/1750177574401-CreateClinicSpecialityTable"
+import { RemoveUserIdFromSpeciality1750181017149 } from "./migrations/1750181017149-RemoveUserIdFromSpeciality"
+import { CreateUserSpecialitiesPivotTable1750181075772 } from "./migrations/1750181075772-CreateUserSpecialitiesPivotTable"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -45,7 +47,9 @@ export const AppDataSource = new DataSource({
         AddNewAttrInUserTable1750170138319,
         CreateClinicTable1750173343010,
         CreateClinicDoctorTable1750177452167,
-        CreateClinicSpecialityTable1750177574401
+        CreateClinicSpecialityTable1750177574401,
+        RemoveUserIdFromSpeciality1750181017149,
+        CreateUserSpecialitiesPivotTable1750181075772
     ],
     subscribers: [],
 })

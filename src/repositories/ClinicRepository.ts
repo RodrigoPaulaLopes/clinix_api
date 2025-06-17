@@ -14,7 +14,12 @@ export default class ClinicRepository {
         this.clinicRepository = userRepository;
     }
     async findAll(): Promise<Clinic[]> {
-        return await userRepository.find();
+        return await userRepository.find({
+            relations: {
+                specialities: true,
+                doctors: true
+            }
+        });
     }
 
     async findById(id: string): Promise<Clinic | null> {
