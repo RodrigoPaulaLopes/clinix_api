@@ -5,10 +5,9 @@ import { AuthenticationMiddleware } from "../middlewares/AuthenticationMiddlewar
 
 const userController = new UserController();
 const userRouter = Router();
- 
-const authenticationMiddleware = new AuthenticationMiddleware()
 
-userRouter.get("/", authenticationMiddleware.execute, userController.findAll.bind(userController));
+
+userRouter.get("/", userController.findAll.bind(userController));
 userRouter.get("/:id", userController.findById.bind(userController));
 userRouter.post("/", celebrate({
   [Segments.BODY]: Joi.object().keys({
