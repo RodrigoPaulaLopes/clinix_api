@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./User";
 import { Clinic } from "./Clinic";
 
@@ -23,4 +23,10 @@ export default class Speciality {
 
     @ManyToMany(() => Clinic, (clinic) => clinic.specialities)
     clinics: Clinic[];
+
+    @CreateDateColumn({ type: "timestamp"})
+    created_at: Date;
+
+    @UpdateDateColumn({ type: "timestamp"})
+    updated_at: Date;
 }
