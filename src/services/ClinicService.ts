@@ -61,7 +61,7 @@ export default class ClinicService {
 
         return await this.clinicRepository.create(clinic);
     }
-    async update(id: string, clinic: Clinic) {
+    async update(id: string, clinic: Omit<Clinic, "id">) {
 
         const existingClinic = await this.clinicRepository.findById(id);
         if (!existingClinic) {
