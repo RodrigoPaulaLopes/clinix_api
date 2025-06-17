@@ -1,6 +1,6 @@
 import { Clinic } from "../database/entities/Clinic";
 import ClinicService from "../services/ClinicService";
-import {Request, Response} from 'express'
+import { Request, Response } from 'express'
 export default class ClinicController {
 
     clinicService: ClinicService
@@ -40,27 +40,29 @@ export default class ClinicController {
     }
 
     async addDoctor(req: Request, res: Response) {
-        const { clinicId, doctorId } = req.body;
+        const { clinicId } = req.params
+        const { doctorId } = req.body;
         const clinic = await this.clinicService.addDoctor(clinicId, doctorId);
         return res.status(200).json(clinic);
     }
 
     async removeDoctor(req: Request, res: Response) {
-        const { clinicId, doctorId } = req.body;
+        const { clinicId, doctorId } = req.params
         const clinic = await this.clinicService.removeDoctor(clinicId, doctorId);
         return res.status(200).json(clinic);
     }
 
     async addSpecialty(req: Request, res: Response) {
-        const { clinicId, specialtyId } = req.body;
+        const { clinicId } = req.params
+        const { specialtyId } = req.body;
         const clinic = await this.clinicService.addSpeciality(clinicId, specialtyId);
         return res.status(200).json(clinic);
     }
 
     async removeSpecialty(req: Request, res: Response) {
-        const { clinicId, specialtyId } = req.body;
+        const { clinicId, specialtyId } = req.params;
         const clinic = await this.clinicService.removeSpeciality(clinicId, specialtyId);
         return res.status(200).json(clinic);
     }
-    
-    } 
+
+} 

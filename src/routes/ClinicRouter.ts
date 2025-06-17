@@ -55,7 +55,7 @@ clinicRouter.delete(
 
 clinicRouter.post(
     "/:id/specialties",
-    ClinicDoctorValidation.create(),
+    ClinicSpecialitiesValidation.create(),
     clinicController.addSpecialty.bind(clinicController)
 );
 
