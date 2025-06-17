@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToMany,
+  JoinTable,
 } from "typeorm";
 import { Role } from "../../enums/Role";
 import Speciality from "./Speciality";
@@ -45,8 +46,11 @@ export class User {
   @Column({ type: "enum", enum: Role, default: Role.PATIENT })
   role: Role
 
-  @OneToMany(() => Speciality, (speciality) => speciality.user, {
-    cascade: true,
+  @ManyToMany(() => Speciality, (speciality) => speciality.users)
+  @JoinTable({
+    name: "user_specialities",
+    joinColumn: { name: "user_id", referencedColumnName: "id" },
+    inverseJoinColumn: { name: "speciality_id", referencedColumnName: "id" },
   })
   specialities: Speciality[];
 

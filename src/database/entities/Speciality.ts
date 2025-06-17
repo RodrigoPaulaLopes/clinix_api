@@ -18,10 +18,8 @@ export default class Speciality {
     description?: string;
 
 
-    @ManyToOne(() => User, (user) => user.specialities, {
-        onDelete: "CASCADE",
-    })
-    user: User;
+    @ManyToMany(() => User, (user) => user.specialities)
+    users: User[];
 
     @ManyToMany(() => Clinic, (clinic) => clinic.specialities)
     clinics: Clinic[];
