@@ -9,6 +9,7 @@ import {
 import { Role } from "../../enums/Role";
 import Speciality from "./Speciality";
 import { DoctorAvailability } from "./DoctorAvailability";
+import { Address } from "./Address";
 
 @Entity("user")
 export class User {
@@ -36,17 +37,8 @@ export class User {
   @Column({ length: 15, nullable: true })
   phone?: string;
 
-  @Column({ length: 255, nullable: true })
-  address?: string;
-
-  @Column({ length: 100, nullable: true })
-  city?: string;
-
-  @Column({ length: 50, nullable: true })
-  state?: string;
-
-  @Column({ length: 10, nullable: true })
-  zip_code?: string;
+  @Column(() => Address, { prefix: "" })
+  address: Address;
 
   @Column({ type: "enum", enum: Role, default: Role.PATIENT })
   role: Role
