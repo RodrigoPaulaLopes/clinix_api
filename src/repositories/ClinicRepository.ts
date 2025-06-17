@@ -30,7 +30,7 @@ export default class ClinicRepository {
         return await userRepository.save(clinic);
     }
 
-    async update(id: string, clinic: Clinic): Promise<Clinic> {
+    async update(id: string, clinic: Omit<Clinic, "id">): Promise<Clinic> {
         await userRepository.update(id, clinic);
         return await this.findById(id);
     }
