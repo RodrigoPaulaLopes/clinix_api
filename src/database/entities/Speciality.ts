@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./User";
 
 
 
@@ -15,6 +16,11 @@ export default class Speciality {
     @Column({ type: "text", nullable: true })
     description?: string;
 
+
+    @ManyToOne(() => User, (user) => user.specialties, {    
+        onDelete: "CASCADE",
+    })
+    user: User;
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
     createdAt: Date;
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP" })

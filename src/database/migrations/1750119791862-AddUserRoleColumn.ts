@@ -7,8 +7,8 @@ export class AddUserRoleColumn1750119791862 implements MigrationInterface {
         await queryRunner.addColumn("user", new TableColumn({
             name: "role",
             type: "enum",
-            enum: ["admin", "user"],
-            default: "'user'",
+            enum: ["admin", "patient", "doctor"],
+            default: "'patient'",
             isNullable: false,
         }));
     }

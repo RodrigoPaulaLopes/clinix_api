@@ -8,9 +8,9 @@ import { RemoveUserFirstAndLastNameEmailPassword1749817414234 } from "./migratio
 import { CreateAuthenticationAttr1750113720945 } from "./migrations/1750113720945-CreateAuthenticationAttr"
 import { RemoveAuthIdAttr1750114541151 } from "./migrations/1750114541151-RemoveAuthIdAttr"
 import { AddUserRoleColumn1750119791862 } from "./migrations/1750119791862-AddUserRoleColumn"
-import { UpdateUserRoleColumn1750128642957 } from "./migrations/1750128642957-UpdateUserRoleColumn"
 import { CreateSpecialtyTable1750128851545 } from "./migrations/1750128851545-CreateSpecialtyTable"
 import Speciality from "./entities/Speciality"
+import { AddRelationUserAndSpeciality1750129319177 } from "./migrations/1750129319177-AddRelationUserAndSpeciality"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -24,14 +24,14 @@ export const AppDataSource = new DataSource({
     logging: false,
     entities: [User, Speciality],
     migrations: [
-        CreateUserTable1749747444548, 
+        CreateUserTable1749747444548,
         AddAuth0IdInUserTables1749817141051,
         RemoveUserFirstAndLastNameEmailPassword1749817414234,
-        CreateAuthenticationAttr1750113720945, 
-        RemoveAuthIdAttr1750114541151, 
+        CreateAuthenticationAttr1750113720945,
+        RemoveAuthIdAttr1750114541151,
         AddUserRoleColumn1750119791862,
-        UpdateUserRoleColumn1750128642957,
-        CreateSpecialtyTable1750128851545
+        CreateSpecialtyTable1750128851545,
+        AddRelationUserAndSpeciality1750129319177
     ],
     subscribers: [],
 })

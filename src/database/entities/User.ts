@@ -4,8 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
 import { Role } from "../../enums/Role";
+import Speciality from "./Speciality";
 
 @Entity("user")
 export class User {
@@ -47,6 +49,12 @@ export class User {
 
   @Column({ type: "enum", enum: Role, default: Role.PATIENT })
   role: Role
+
+
+  @OneToMany(() => Speciality, (speciality) => speciality.user, {
+    cascade: true,
+  })
+  specialties: Speciality[];
 
   @CreateDateColumn({ type: "timestamp" })
   created_at: Date;
