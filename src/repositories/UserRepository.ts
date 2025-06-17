@@ -22,8 +22,9 @@ export default class UserRepository {
         return await userRepository.save(user);
     }
 
-    async update(user: User): Promise<User> {
-        return await userRepository.save(user);
+    async update(id: string, user: User): Promise<User> {
+        await userRepository.update(id, user);
+        return await this.findById(id);
     }
 
     async delete(id: string): Promise<void> {

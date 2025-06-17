@@ -3,6 +3,7 @@ import userRouter from "./UserRouter";
 import authRouter from "./AuthenticationRouter";
 import { AuthenticationMiddleware } from "../middlewares/AuthenticationMiddleware";
 import { AdminMiddleware } from "../middlewares/AdminMiddleware";
+import profileRouter from "./ProfileRouter";
 
 const routes = Router();
 
@@ -14,6 +15,10 @@ routes.use("/users",
     authMiddleware.execute.bind(authMiddleware), 
     adminMiddleware.execute.bind(adminMiddleware), 
     userRouter);
+
+routes.use("/profile",
+    authMiddleware.execute.bind(authMiddleware), 
+    profileRouter);
     
 routes.use("/auth", authRouter);
 
