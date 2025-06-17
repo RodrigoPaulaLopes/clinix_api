@@ -13,6 +13,8 @@ import Speciality from "./entities/Speciality"
 import { AddRelationUserAndSpeciality1750129319177 } from "./migrations/1750129319177-AddRelationUserAndSpeciality"
 import { CreateDoctorAvailabilityTable1750131729639 } from "./migrations/1750131729639-CreateDoctorAvailabilityTable"
 import { DoctorAvailability } from "./entities/DoctorAvailability"
+import { RemoveAddressColumnsInUserTable1750169767691 } from "./migrations/1750169767691-RemoveAddressColumnsInUserTable"
+import { AddNewAttrInUserTable1750170138319 } from "./migrations/1750170138319-AddNewAttrInUserTable"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -34,7 +36,9 @@ export const AppDataSource = new DataSource({
         AddUserRoleColumn1750119791862,
         CreateSpecialtyTable1750128851545,
         AddRelationUserAndSpeciality1750129319177,
-        CreateDoctorAvailabilityTable1750131729639
+        CreateDoctorAvailabilityTable1750131729639,
+        RemoveAddressColumnsInUserTable1750169767691,
+        AddNewAttrInUserTable1750170138319
     ],
     subscribers: [],
 })
