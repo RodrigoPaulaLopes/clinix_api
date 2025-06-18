@@ -24,6 +24,7 @@ import { CreateUserSpecialitiesPivotTable1750181075772 } from "./migrations/1750
 import { AlterCreatedAtAndUpdatedAtColumnInSpeciality1750185316805 } from "./migrations/1750185316805-AlterCreatedAtAndUpdatedAtColumnInSpeciality"
 import { CreateNewCreatedAtAndUpdatedAtColumnInSpeciality1750185538791 } from "./migrations/1750185538791-CreateNewCreatedAtAndUpdatedAtColumnInSpeciality"
 import { CreateAppointmentTable1750249988611 } from "./migrations/1750249988611-CreateAppointmentTable"
+import { Appointment } from "./entities/Appointment"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -35,7 +36,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME || "clinix",
     synchronize: false,
     logging: false,
-    entities: [User, Speciality, DoctorAvailability, Clinic],
+    entities: [User, Speciality, DoctorAvailability, Clinic, Appointment],
     migrations: [
         CreateUserTable1749747444548,
         AddAuth0IdInUserTables1749817141051,

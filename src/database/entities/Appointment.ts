@@ -6,7 +6,6 @@ import {
   UpdateDateColumn,
   ManyToOne,
 } from "typeorm";
-import { User } from "./User";
 import { Clinic } from "./Clinic";
 import { AppointmentStatus } from "../../enums/AppointmentStatus";
 import { Doctor } from "./Doctor";
