@@ -7,15 +7,18 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  TableInheritance,
 } from "typeorm";
 import { Role } from "../../enums/Role";
 import Speciality from "./Speciality";
 import { DoctorAvailability } from "./DoctorAvailability";
 import { Address } from "./Address";
 import { Clinic } from "./Clinic";
+import { Appointment } from "./Appointment";
 
 @Entity("user")
-export class User {
+@TableInheritance({ column: { type: "varchar", name: "role" } })
+export abstract class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -46,31 +49,10 @@ export class User {
   @Column({ type: "enum", enum: Role, default: Role.PATIENT })
   role: Role
 
-  @ManyToMany(() => Speciality, (speciality) => speciality.users)
-  @JoinTable({
-    name: "user_specialities",
-    joinColumn: { name: "user_id", referencedColumnName: "id" },
-    inverseJoinColumn: { name: "speciality_id", referencedColumnName: "id" },
-  })
-  specialities: Speciality[];
-
-  @OneToMany(() => DoctorAvailability, (doctorAvailability) => doctorAvailability.user, {
-    cascade: true,
-  })
-  availabilities: DoctorAvailability[];
-
-  @ManyToMany(() => Clinic, (clinic) => clinic.doctors)
-  clinics: Clinic[];
-
   @CreateDateColumn({ type: "timestamp" })
   created_at: Date;
 
   @UpdateDateColumn({ type: "timestamp" })
   updated_at: Date;
-
-
-  public isAdmin(): boolean {
-    return this.role === Role.ADMIN;
-  }
 
 }
