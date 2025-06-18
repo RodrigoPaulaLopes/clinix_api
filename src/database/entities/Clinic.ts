@@ -13,6 +13,7 @@ import { DaysAvailability } from "../../enums/DaysAvailability";
 import { User } from "./User";
 import Speciality from "./Speciality";
 import { Appointment } from "./Appointment";
+import { Doctor } from "./Doctor";
 
 @Entity("clinic")
 export class Clinic {
@@ -43,7 +44,7 @@ export class Clinic {
   @Column({ default: true })
   is_active: boolean;
 
-  @ManyToMany(() => User, (user) => user.clinics)
+  @ManyToMany(() => Doctor, (doctor) => doctor.clinics)
   @JoinTable({
     name: "clinic_users",
     joinColumn: {
@@ -55,7 +56,7 @@ export class Clinic {
       referencedColumnName: "id",
     },
   })
-  doctors: User[];
+  doctors: Doctor[];
 
   @ManyToMany(() => Speciality, (speciality) => speciality.clinics)
   @JoinTable({

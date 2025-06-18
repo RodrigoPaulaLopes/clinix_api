@@ -9,6 +9,8 @@ import {
 import { User } from "./User";
 import { Clinic } from "./Clinic";
 import { AppointmentStatus } from "../../enums/AppointmentStatus";
+import { Doctor } from "./Doctor";
+import { Patient } from "./Patient";
 
 
 @Entity("appointment")
@@ -16,11 +18,11 @@ export class Appointment {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @ManyToOne(() => User, (user) => user.appointmentsAsPatient, { onDelete: "CASCADE" })
-  patient: User;
+  @ManyToOne(() => Patient, (patient) => patient.appointmentsAsPatient, { onDelete: "CASCADE" })
+  patient: Patient;
 
-  @ManyToOne(() => User, (user) => user.appointmentsAsDoctor, { onDelete: "CASCADE" })
-  doctor: User;
+  @ManyToOne(() => Doctor, (doctor) => doctor.appointmentsAsDoctor, { onDelete: "CASCADE" })
+  doctor: Doctor;
 
   @ManyToOne(() => Clinic, (clinic) => clinic.appointments, { onDelete: "CASCADE" })
   clinic: Clinic;
