@@ -23,6 +23,7 @@ import { RemoveUserIdFromSpeciality1750181017149 } from "./migrations/1750181017
 import { CreateUserSpecialitiesPivotTable1750181075772 } from "./migrations/1750181075772-CreateUserSpecialitiesPivotTable"
 import { AlterCreatedAtAndUpdatedAtColumnInSpeciality1750185316805 } from "./migrations/1750185316805-AlterCreatedAtAndUpdatedAtColumnInSpeciality"
 import { CreateNewCreatedAtAndUpdatedAtColumnInSpeciality1750185538791 } from "./migrations/1750185538791-CreateNewCreatedAtAndUpdatedAtColumnInSpeciality"
+import { CreateAppointmentTable1750249988611 } from "./migrations/1750249988611-CreateAppointmentTable"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -53,7 +54,8 @@ export const AppDataSource = new DataSource({
         RemoveUserIdFromSpeciality1750181017149,
         CreateUserSpecialitiesPivotTable1750181075772, 
         AlterCreatedAtAndUpdatedAtColumnInSpeciality1750185316805,
-        CreateNewCreatedAtAndUpdatedAtColumnInSpeciality1750185538791
+        CreateNewCreatedAtAndUpdatedAtColumnInSpeciality1750185538791,
+        CreateAppointmentTable1750249988611
     ],
     subscribers: [],
 })
