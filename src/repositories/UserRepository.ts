@@ -5,40 +5,44 @@ import { App } from "../main";
 import { Role } from "../enums/Role";
 import APIError from "../error/ApiError";
 
-const userRepository = AppDataSource.getRepository(User);
-
-export default abstract class UserRepository {
+export default class UserRepository {
 
     protected repository: Repository<User>
+
+    constructor(){
+        this.repository = AppDataSource.getRepository(User); 
+    }
     
-    abstract findAll(): Promise<User[]> 
+    async findAll(): Promise<User[]> {
+        return await this.repository.find()
+    }
     async findById(id: string): Promise<User | null> {
-        return await userRepository.findOneBy({ id });
+        return await this.repository .findOneBy({ id });
     }
 
     async findByEmail(email: string): Promise<User | null> {
-        return await userRepository.findOneBy({ email });
+        return await this.repository .findOneBy({ email });
     }
 
     async create(user: User): Promise<User> {
-        return await userRepository.save(user);
+        return await this.repository .save(user);
     }
 
     async update(id: string, user: User): Promise<User> {
-        await userRepository.update(id, user);
+        await this.repository .update(id, user);
         return await this.findById(id);
     }
 
     async delete(id: string): Promise<void> {
-        await userRepository.delete(id);
+        await this.repository .delete(id);
     }
 
     async findByCpf(cpf: string): Promise<User | null> {
-        return await userRepository.findOneBy({ cpf });
+        return await this.repository .findOneBy({ cpf });
     }
 
     async login(emailOrCpf: string, password: string): Promise<User | null> {
-        const user = await userRepository.findOne({
+        const user = await this.repository .findOne({
             where: [
                 { email: emailOrCpf, password },
                 { cpf: emailOrCpf, password }
@@ -46,6 +50,16 @@ export default abstract class UserRepository {
         });
 
         return user ?? null;
+    }
+
+    
+
+    async findDoctorById(id: string) : Promise<User> {
+        return await this.repository .findOne({
+            where: {
+                id
+            }
+        })
     }
 
 }
