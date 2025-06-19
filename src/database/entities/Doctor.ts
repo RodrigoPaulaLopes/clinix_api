@@ -10,13 +10,13 @@ import { Appointment } from "./Appointment";
 export class Doctor extends User {
 
     @Column({ unique: true, nullable: false })
-    crm: string
+    crm?: string
 
     @Column()
     bio?: string
 
 
-    @ManyToMany(() => Speciality, (speciality) => speciality.users)
+    @ManyToMany(() => Speciality, (speciality) => speciality.doctors)
     @JoinTable({
         name: "user_specialities",
         joinColumn: { name: "user_id", referencedColumnName: "id" },
@@ -24,7 +24,7 @@ export class Doctor extends User {
     })
     specialities: Speciality[];
 
-    @OneToMany(() => DoctorAvailability, (doctorAvailability) => doctorAvailability.user, {
+    @OneToMany(() => DoctorAvailability, (doctorAvailability) => doctorAvailability.doctor, {
         cascade: true,
     })
     availabilities: DoctorAvailability[];

@@ -25,6 +25,9 @@ import { AlterCreatedAtAndUpdatedAtColumnInSpeciality1750185316805 } from "./mig
 import { CreateNewCreatedAtAndUpdatedAtColumnInSpeciality1750185538791 } from "./migrations/1750185538791-CreateNewCreatedAtAndUpdatedAtColumnInSpeciality"
 import { CreateAppointmentTable1750249988611 } from "./migrations/1750249988611-CreateAppointmentTable"
 import { Appointment } from "./entities/Appointment"
+import { AddCrmAndBioAttrInUserTable1750374149816 } from "./migrations/1750374149816-AddCrmAndBioAttrInUserTable"
+import { Doctor } from "./entities/Doctor"
+import { Patient } from "./entities/Patient"
 dotenv.config()
 
 export const AppDataSource = new DataSource({
@@ -36,7 +39,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME || "clinix",
     synchronize: false,
     logging: false,
-    entities: [User, Speciality, DoctorAvailability, Clinic, Appointment],
+    entities: [User, Speciality, DoctorAvailability, Clinic, Appointment, Doctor, Patient],
     migrations: [
         CreateUserTable1749747444548,
         AddAuth0IdInUserTables1749817141051,
@@ -56,7 +59,8 @@ export const AppDataSource = new DataSource({
         CreateUserSpecialitiesPivotTable1750181075772, 
         AlterCreatedAtAndUpdatedAtColumnInSpeciality1750185316805,
         CreateNewCreatedAtAndUpdatedAtColumnInSpeciality1750185538791,
-        CreateAppointmentTable1750249988611
+        CreateAppointmentTable1750249988611,
+        AddCrmAndBioAttrInUserTable1750374149816
     ],
     subscribers: [],
 })

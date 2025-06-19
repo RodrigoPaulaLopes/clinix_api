@@ -7,16 +7,11 @@ import APIError from "../error/ApiError";
 
 const userRepository = AppDataSource.getRepository(User);
 
-export default class UserRepository {
+export default abstract class UserRepository {
 
-    async findAll(): Promise<User[]> {
-        return await userRepository.find({
-            relations: {
-                specialities: true,
-                availabilities: true
-            }
-        });
-    }
+    protected repository: Repository<User>
+    
+    abstract findAll(): Promise<User[]> 
     async findById(id: string): Promise<User | null> {
         return await userRepository.findOneBy({ id });
     }
@@ -51,27 +46,6 @@ export default class UserRepository {
         });
 
         return user ?? null;
-    }
-
-    async findDoctorsByIds(ids: string[]): Promise<User[]> {
-
-        const foundDoctors = await userRepository.find({
-            where: {
-                id: In(ids),
-                role: Role.DOCTOR
-            }
-        });
-
-        return foundDoctors;
-    }
-
-    async findDoctorById(id: string) : Promise<User> {
-        return await userRepository.findOne({
-            where: {
-                id: id,
-                role: Role.DOCTOR
-            }
-        })
     }
 
 }

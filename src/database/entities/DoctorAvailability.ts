@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { User } from "./User";
 import { DaysAvailability } from "../../enums/DaysAvailability";
+import { Doctor } from "./Doctor";
 
 
 @Entity("doctor_availability")
@@ -11,9 +12,9 @@ export class DoctorAvailability {
     @Column()
     userId: string;
 
-    @ManyToOne(() => User, (user) => user.availabilities, { onDelete: "CASCADE" })
+    @ManyToOne(() => Doctor, (doctor) => doctor.availabilities, { onDelete: "CASCADE" })
     @JoinColumn({ name: "userId" })
-    user: User;
+    doctor: Doctor;
 
     @Column({ type: "enum", enum: DaysAvailability })
     dayOfWeek: DaysAvailability;
