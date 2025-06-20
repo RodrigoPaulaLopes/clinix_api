@@ -14,7 +14,12 @@ export default class DoctorRepository {
     }
 
     async findById(id: string): Promise<Doctor | null> {
-        return await this.repository.findOneBy({ id });
+        return await this.repository.findOne({ 
+            where: {
+                id
+            },
+            relations: ['clinics', 'availabilities']
+         });
     }
 
     async findByEmail(email: string): Promise<Doctor | null> {

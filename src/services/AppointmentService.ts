@@ -19,9 +19,9 @@ export class AppointmentService {
     patientService: PatientServices
     clinicService: ClinicService
 
-    constructor(){
+    constructor() {
         this.appointmentRepository = new AppointmentRepository()
-        this.doctorService  = new DoctorServices()
+        this.doctorService = new DoctorServices()
         this.patientService = new PatientServices()
         this.clinicService = new ClinicService()
     }
@@ -38,11 +38,13 @@ export class AppointmentService {
         const clinic = await this.clinicService.findById(clinicId)
 
 
-        if (doctor.clinics.some(doctorClinic => doctorClinic.id !== clinic.id)) {
+        const doctorWorksInClinic = doctor.clinics.some(doctorClinic => doctorClinic.id !== clinic.id);
+        
+        if (!doctorWorksInClinic) {
             throw new APIError(400, 'The doctor does not belong to the selected clinic.')
         }
 
-        if(!doctor.isDoctorAvailabilityOnTheDayAndTimeSelected(date, time)) 
+        if (!doctor.isDoctorAvailabilityOnTheDayAndTimeSelected(date, time))
             throw new APIError(400, 'The doctor is not available on the selected date and time.')
 
         // Check if there is already an appointment for the same doctor at the same time
@@ -50,7 +52,7 @@ export class AppointmentService {
         if (existingAppointment) {
             throw new Error('There is already an appointment for this doctor at this time.')
         }
-        
+
         const data: Partial<Appointment> = {
             patient,
             doctor,
