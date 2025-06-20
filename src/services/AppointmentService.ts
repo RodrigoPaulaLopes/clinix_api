@@ -1,7 +1,9 @@
+import { API } from '../api/ApiConfig'
 import { Appointment } from '../database/entities/Appointment'
 import { Doctor } from '../database/entities/Doctor'
 import { AppointmentStatus } from '../enums/AppointmentStatus'
 import { Role } from '../enums/Role'
+import APIError from '../error/ApiError'
 import AppointmentRepository from '../repositories/AppointmentRepository'
 import ClinicRepository from '../repositories/ClinicRepository'
 import UserRepository from '../repositories/UserRepository'
@@ -35,16 +37,17 @@ export class AppointmentService {
 
         const clinic = await this.clinicService.findById(clinicId)
 
+
+        if(!doctor.isDoctorAvailabilityDayAndTime(date, time)) 
+            throw new APIError(400, 'The doctor is not available on the selected date and time.')
+
         // Check if there is already an appointment for the same doctor at the same time
-        const existingAppointment = await this.appointmentRepository.findByDoctorAndDate(doctorId, date)
+        const existingAppointment = await this.appointmentRepository.findAppointmentByDoctorAndDateTime(doctorId, date, time)
         if (existingAppointment) {
             throw new Error('There is already an appointment for this doctor at this time.')
         }
-
-
-
-       
-        const data: Appointment = {
+        
+        const data: Partial<Appointment> = {
             patient,
             doctor,
             clinic,

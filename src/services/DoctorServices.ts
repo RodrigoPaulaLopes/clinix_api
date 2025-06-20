@@ -43,4 +43,5 @@ export default class DoctorServices {
     async delete(id: string): Promise<void> {
         await this.doctorRepository.delete(id);
     }
+
 }

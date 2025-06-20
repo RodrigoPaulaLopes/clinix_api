@@ -5,6 +5,7 @@ import Speciality from "./Speciality";
 import { DoctorAvailability } from "./DoctorAvailability";
 import { Clinic } from "./Clinic";
 import { Appointment } from "./Appointment";
+import { DaysAvailabilityUtils } from "../../utils/date/Availability";
 
 @ChildEntity(Role.DOCTOR)
 export class Doctor extends User {
@@ -34,4 +35,12 @@ export class Doctor extends User {
 
     @OneToMany(() => Appointment, (appointment) => appointment.doctor)
     appointmentsAsDoctor: Appointment[];
+
+
+    isDoctorAvailabilityDayAndTime(date: string, time: string) : Boolean{
+        const day = DaysAvailabilityUtils.returnDayOfWeek(date)
+        const isAvailableDay = this.availabilities.some(date => date.dayOfWeek === day)
+        const isAvailableTime = this.availabilities.some(date => date.startTime >= time && date.endTime <= time)
+        return isAvailableDay && isAvailableTime
+    }
 }

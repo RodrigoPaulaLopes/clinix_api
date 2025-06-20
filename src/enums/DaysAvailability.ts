@@ -8,4 +8,5 @@ export enum DaysAvailability {
   FRIDAY = "friday",
   SATURDAY = "saturday",
   SUNDAY = "sunday",
+
 }
