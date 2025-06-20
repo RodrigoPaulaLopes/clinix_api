@@ -5,6 +5,7 @@ import { Role } from '../enums/Role'
 import AppointmentRepository from '../repositories/AppointmentRepository'
 import ClinicRepository from '../repositories/ClinicRepository'
 import UserRepository from '../repositories/UserRepository'
+import ClinicService from './ClinicService'
 import DoctorServices from './DoctorServices'
 import PatientServices from './PatientServices'
 
@@ -14,13 +15,13 @@ export class AppointmentService {
     appointmentRepository: AppointmentRepository
     doctorService: DoctorServices
     patientService: PatientServices
-    clinicRepository: ClinicRepository
+    clinicService: ClinicService
 
     constructor(){
         this.appointmentRepository = new AppointmentRepository()
         this.doctorService  = new DoctorServices()
         this.patientService = new PatientServices()
-        this.clinicRepository = new ClinicRepository()
+        this.clinicService = new ClinicService()
     }
 
 
@@ -30,15 +31,10 @@ export class AppointmentService {
         const doctor = await this.doctorService.findById(doctorId)
 
         // Check if the patient exists
-        const patient = await this.userRepository.findPatientById(patientId)
-        if (!patient) {
-            throw new Error('Patient not found.')
-        }
+        const patient = await this.patientService.findById(patientId)
 
-        const clinic = await this.clinicRepository.findById(clinicId)
-        if (!clinic) {
-            throw new Error('Clinic not found for this doctor.')
-        }
+        const clinic = await this.clinicService.findById(clinicId)
+
         // Check if there is already an appointment for the same doctor at the same time
         const existingAppointment = await this.appointmentRepository.findByDoctorAndDate(doctorId, date)
         if (existingAppointment) {
@@ -57,7 +53,7 @@ export class AppointmentService {
             status: AppointmentStatus.SCHEDULED
         }
         // Cria o agendamento
-        const appointment = await this.appointmentRepository.create()
+        const appointment = await this.appointmentRepository.create(data)
 
         return appointment
     }
