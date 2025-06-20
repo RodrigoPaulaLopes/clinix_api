@@ -21,6 +21,9 @@ export default class PatientRepository {
     async findByEmail(email: string): Promise<Patient | null> {
         return await this.repository.findOneBy({ email });
     }
+    async findByCpf(cpf: string): Promise<Patient | null> {
+        return await this.repository.findOneBy({ cpf });
+    }
 
     async create(patient: Patient): Promise<Patient> {
         return await this.repository.save(patient);

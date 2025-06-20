@@ -38,6 +38,10 @@ export class AppointmentService {
         const clinic = await this.clinicService.findById(clinicId)
 
 
+        if (doctor.clinics.some(doctorClinic => doctorClinic.id !== clinic.id)) {
+            throw new APIError(400, 'The doctor does not belong to the selected clinic.')
+        }
+
         if(!doctor.isDoctorAvailabilityOnTheDayAndTimeSelected(date, time)) 
             throw new APIError(400, 'The doctor is not available on the selected date and time.')
 
