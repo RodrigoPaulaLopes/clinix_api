@@ -38,10 +38,10 @@ export class AppointmentService {
         const clinic = await this.clinicService.findById(clinicId)
 
 
-        const doctorWorksInClinic = doctor.clinics.some(doctorClinic => doctorClinic.id !== clinic.id);
-        
+        const doctorWorksInClinic = doctor.clinics.some(doctorClinic => doctorClinic.id === clinic.id);
+
         if (!doctorWorksInClinic) {
-            throw new APIError(400, 'The doctor does not belong to the selected clinic.')
+            throw new APIError(400, 'The doctor does not belong to the selected clinic.');
         }
 
         if (!doctor.isDoctorAvailabilityOnTheDayAndTimeSelected(date, time))
@@ -49,7 +49,7 @@ export class AppointmentService {
 
         // Check if there is already an appointment for the same doctor at the same time
         const existingAppointment = await this.appointmentRepository.findAppointmentByDoctorAndDateTime(doctorId, date, time)
-        if (existingAppointment) {
+        if (existingAppointment.length > 0) {
             throw new Error('There is already an appointment for this doctor at this time.')
         }
 
