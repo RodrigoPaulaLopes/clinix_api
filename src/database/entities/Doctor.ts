@@ -6,6 +6,7 @@ import { DoctorAvailability } from "./DoctorAvailability";
 import { Clinic } from "./Clinic";
 import { Appointment } from "./Appointment";
 import { DaysAvailabilityUtils } from "../../utils/date/Availability";
+import { isWithinInterval, parse } from "date-fns";
 
 @ChildEntity(Role.DOCTOR)
 export class Doctor extends User {
@@ -37,12 +38,22 @@ export class Doctor extends User {
     appointmentsAsDoctor: Appointment[];
 
 
-    isDoctorAvailabilityOnTheDayAndTimeSelected(date: string, time: string) : Boolean{
-        const day = DaysAvailabilityUtils.returnDayOfWeek(date)
-        console.log("availabilities: ", this.availabilities);
-        
-        const isAvailableDay = this.availabilities.some(date => date.dayOfWeek === day)
-        const isAvailableTime = this.availabilities.some(date => date.startTime >= time && date.endTime <= time)
-        return isAvailableDay && isAvailableTime
+
+
+    isDoctorAvailabilityOnTheDayAndTimeSelected(date: string, time: string): boolean {
+        const day = DaysAvailabilityUtils.returnDayOfWeek(date);
+
+        const isAvailable = this.availabilities.some(availability => {
+            if (availability.dayOfWeek !== day) return false;
+
+            const start = parse(availability.startTime, 'HH:mm:ss', new Date());
+            const end = parse(availability.endTime, 'HH:mm:ss', new Date());
+            const requestedTime = parse(time, 'HH:mm:ss', new Date());
+            
+            return isWithinInterval(requestedTime, { start, end });
+        });
+
+        return isAvailable;
     }
+
 }
