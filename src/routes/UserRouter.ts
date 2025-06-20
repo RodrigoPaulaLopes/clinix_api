@@ -17,4 +17,6 @@ userRouter.post("/", celebrate({
   })}), userController.create.bind(userController));
 userRouter.put("/:id", userController.update.bind(userController));
 userRouter.delete("/:id", userController.delete.bind(userController));
+
+
 export default userRouter;

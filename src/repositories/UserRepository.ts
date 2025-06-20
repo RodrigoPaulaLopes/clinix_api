@@ -1,9 +1,6 @@
 import { In, Repository } from "typeorm";
 import { AppDataSource } from "../database/data-source";
 import { User } from "../database/entities/User";
-import { App } from "../main";
-import { Role } from "../enums/Role";
-import APIError from "../error/ApiError";
 
 export default class UserRepository {
 
@@ -38,7 +35,7 @@ export default class UserRepository {
     }
 
     async findByCpf(cpf: string): Promise<User | null> {
-        return await this.repository .findOneBy({ cpf });
+        return await this.repository.findOneBy({ cpf });
     }
 
     async login(emailOrCpf: string, password: string): Promise<User | null> {
@@ -52,14 +49,6 @@ export default class UserRepository {
         return user ?? null;
     }
 
-    
 
-    async findDoctorById(id: string) : Promise<User> {
-        return await this.repository .findOne({
-            where: {
-                id
-            }
-        })
-    }
 
 }

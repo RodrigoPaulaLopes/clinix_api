@@ -39,6 +39,15 @@ export default class AppointmentRepository {
         await this.appointmentRepository.update(id, {status: status})
         return await this.findById(id)
     }
+    async findByDoctorAndDate(doctorId: string, date: string){
+        return await this.appointmentRepository.find({
+            where: {
+                doctor: { id: doctorId },
+                date: date
+            },
+            relations: ["doctor"]
+        })
+    }
 
 
 
