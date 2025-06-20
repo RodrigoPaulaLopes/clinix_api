@@ -38,7 +38,7 @@ export class AppointmentService {
         const clinic = await this.clinicService.findById(clinicId)
 
 
-        if(!doctor.isDoctorAvailabilityDayAndTime(date, time)) 
+        if(!doctor.isDoctorAvailabilityOnTheDayAndTimeSelected(date, time)) 
             throw new APIError(400, 'The doctor is not available on the selected date and time.')
 
         // Check if there is already an appointment for the same doctor at the same time

@@ -37,7 +37,7 @@ export class Doctor extends User {
     appointmentsAsDoctor: Appointment[];
 
 
-    isDoctorAvailabilityDayAndTime(date: string, time: string) : Boolean{
+    isDoctorAvailabilityOnTheDayAndTimeSelected(date: string, time: string) : Boolean{
         const day = DaysAvailabilityUtils.returnDayOfWeek(date)
         const isAvailableDay = this.availabilities.some(date => date.dayOfWeek === day)
         const isAvailableTime = this.availabilities.some(date => date.startTime >= time && date.endTime <= time)
