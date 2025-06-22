@@ -1,6 +1,8 @@
-import UserController from "../../src/controllers/UserController";
-import { User } from "../../src/database/entities/User";
-import UserServices from "../../src/services/UserServices";
+import UserController from "../../../src/controllers/UserController";
+import { Address } from "../../../src/database/entities/Address";
+import { User } from "../../../src/database/entities/User";
+import { Role } from "../../../src/enums/Role";
+import UserServices from "../../../src/services/UserServices";
 import { Request, Response } from "express";
 
 describe("UserController", () => {  
@@ -15,7 +17,9 @@ describe("UserController", () => {
         cpf: "",
         password: "",
         created_at: undefined,
-        updated_at: undefined
+        updated_at: undefined,
+        address: new Address,
+        role: Role.ADMIN
     }];
 
     let req: jest.Mocked<Request>;

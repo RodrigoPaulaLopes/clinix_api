@@ -1,6 +1,8 @@
-import { User } from "../../src/database/entities/User";
-import UserRepository from "../../src/repositories/UserRepository";
-import UserServices from "../../src/services/UserServices";
+import { Address } from "../../../src/database/entities/Address";
+import { User } from "../../../src/database/entities/User";
+import { Role } from "../../../src/enums/Role";
+import UserRepository from "../../../src/repositories/UserRepository";
+import UserServices from "../../../src/services/UserServices";
 
 
 
@@ -17,7 +19,9 @@ describe('UserServices', () => {
         cpf: "",
         password: "",
         created_at: undefined,
-        updated_at: undefined
+        updated_at: undefined,
+        address: new Address,
+        role: Role.ADMIN
     }]
 
     afterAll(() => {
