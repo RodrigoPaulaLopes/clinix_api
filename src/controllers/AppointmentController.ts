@@ -14,7 +14,7 @@ export class AppointmentController {
     // Criar agendamento
     async create(req: Request, res: Response) {
         const { doctorId, clinicId, date, time } = req.body;
-        const patientId = req.user.id;
+        const patientId = req.user?.id as string;
 
         const appointment = await this.appointmentService.scheduleAppointment(
             patientId,
@@ -27,16 +27,16 @@ export class AppointmentController {
         res.status(201).json(appointment);
     }
     async getUserAppointments(req: Request, res: Response) {
-        const userId = req.user.id;
-        const role = req.user.role as Role;
+        const userId = req.user?.id as string;
+        const role = req.user?.role as Role;
 
         const appointments = await this.appointmentService.getUserAppointments(userId, role);
         res.status(200).json(appointments);
     }
 
     async cancel(req: Request, res: Response) {
-        const userId = req.user.id;
-        const role = req.user.role as Role;
+        const userId = req.user?.id as string;
+        const role = req.user?.role as Role;
         const appointmentId = req.params.id;
 
         await this.appointmentService.cancelUserAppointment(userId, role, appointmentId);
@@ -46,8 +46,8 @@ export class AppointmentController {
 
     async update(req: Request, res: Response) {
 
-        const userId = req.user.id;
-        const role = req.user.role as Role;
+        const userId = req.user?.id as string;
+        const role = req.user?.role as Role;
         const appointmentId = req.params.id;
         const { date, time } = req.body;
 
@@ -63,8 +63,8 @@ export class AppointmentController {
     }
 
     async delete(req: Request, res: Response) {
-        const userId = req.user.id;
-        const role = req.user.role as Role;
+        const userId = req.user?.id as string;
+        const role = req.user?.role as Role;
         const appointmentId = req.params.id;
 
         await this.appointmentService.deleteUserAppointment(userId, role, appointmentId);
