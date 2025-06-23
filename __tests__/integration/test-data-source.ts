@@ -28,34 +28,37 @@ import { CreateAppointmentTable1750249988611 } from "../../src/database/migratio
 import { AddCrmAndBioAttrInUserTable1750374149816 } from "../../src/database/migrations/1750374149816-AddCrmAndBioAttrInUserTable";
 
 
-export const TestDataSource = new DataSource({
-  type: "sqlite",
-  database: ":memory:",
-  dropSchema: true,
-  synchronize: false,
-      logging: false,
-      entities: [User, Speciality, DoctorAvailability, Clinic, Appointment, Doctor, Patient],
-      migrations: [
-          CreateUserTable1749747444548,
-          AddAuth0IdInUserTables1749817141051,
-          RemoveUserFirstAndLastNameEmailPassword1749817414234,
-          CreateAuthenticationAttr1750113720945,
-          RemoveAuthIdAttr1750114541151,
-          AddUserRoleColumn1750119791862,
-          CreateSpecialtyTable1750128851545,
-          AddRelationUserAndSpeciality1750129319177,
-          CreateDoctorAvailabilityTable1750131729639,
-          RemoveAddressColumnsInUserTable1750169767691,
-          AddNewAttrInUserTable1750170138319,
-          CreateClinicTable1750173343010,
-          CreateClinicDoctorTable1750177452167,
-          CreateClinicSpecialityTable1750177574401,
-          RemoveUserIdFromSpeciality1750181017149,
-          CreateUserSpecialitiesPivotTable1750181075772, 
-          AlterCreatedAtAndUpdatedAtColumnInSpeciality1750185316805,
-          CreateNewCreatedAtAndUpdatedAtColumnInSpeciality1750185538791,
-          CreateAppointmentTable1750249988611,
-          AddCrmAndBioAttrInUserTable1750374149816
-      ],
-      subscribers: []
-});
+export const testDataSource = new DataSource({
+    type: "postgres",
+    host: process.env.DB_HOST_TEST,
+    port: Number(process.env.DB_PORT_TEST),
+    username: process.env.DB_USERNAME_TEST,
+    password: process.env.DB_PASSWOR_TEST,
+    database: process.env.DB_NAME_TEST,
+    synchronize: false,
+    logging: false,
+    entities: [User, Speciality, DoctorAvailability, Clinic, Appointment, Doctor, Patient],
+    migrations: [
+        CreateUserTable1749747444548,
+        AddAuth0IdInUserTables1749817141051,
+        RemoveUserFirstAndLastNameEmailPassword1749817414234,
+        CreateAuthenticationAttr1750113720945,
+        RemoveAuthIdAttr1750114541151,
+        AddUserRoleColumn1750119791862,
+        CreateSpecialtyTable1750128851545,
+        AddRelationUserAndSpeciality1750129319177,
+        CreateDoctorAvailabilityTable1750131729639,
+        RemoveAddressColumnsInUserTable1750169767691,
+        AddNewAttrInUserTable1750170138319,
+        CreateClinicTable1750173343010,
+        CreateClinicDoctorTable1750177452167,
+        CreateClinicSpecialityTable1750177574401,
+        RemoveUserIdFromSpeciality1750181017149,
+        CreateUserSpecialitiesPivotTable1750181075772, 
+        AlterCreatedAtAndUpdatedAtColumnInSpeciality1750185316805,
+        CreateNewCreatedAtAndUpdatedAtColumnInSpeciality1750185538791,
+        CreateAppointmentTable1750249988611,
+        AddCrmAndBioAttrInUserTable1750374149816
+    ],
+    subscribers: [],
+})
