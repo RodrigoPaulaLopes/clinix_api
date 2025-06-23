@@ -1,6 +1,7 @@
 import { API } from '../api/ApiConfig'
 import { Appointment } from '../database/entities/Appointment'
 import { Doctor } from '../database/entities/Doctor'
+import { User } from '../database/entities/User'
 import { AppointmentStatus } from '../enums/AppointmentStatus'
 import { Role } from '../enums/Role'
 import APIError from '../error/ApiError'
@@ -74,14 +75,21 @@ export class AppointmentService {
         } else if (role === Role.PATIENT) {
             const patient = await this.patientService.findById(userId)
             if (!patient) throw new APIError(404, 'Patient not found.')
-            return this.appointmentRepository.findAppointmentsByPatientId(userId)
+            return this.appointmentRepository.findAppointmentsByPatientId(patient.id)
         } else {
             throw new APIError(400, 'Invalid user role.')
         }
     }
 
     async getUserAppointments(userId: string, role: Role) {
-        return this.getAppointmentsByUser(userId, role)
+        let user: User
+        if (role == Role.DOCTOR) {
+            user = await this.doctorService.findById(userId)
+        }
+        if (role == Role.PATIENT) {
+            user = await this.patientService.findById(userId)
+        }
+        return this.getAppointmentsByUser(user.id, role)
     }
 
     async cancelUserAppointment(userId: string, role: Role, appointmentId: string) {
