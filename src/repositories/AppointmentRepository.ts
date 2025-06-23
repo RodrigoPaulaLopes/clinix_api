@@ -7,7 +7,7 @@ export default class AppointmentRepository {
 
     appointmentRepository: Repository<Appointment>
 
-    constructor(){
+    constructor() {
         this.appointmentRepository = AppDataSource.getRepository(Appointment)
     }
 
@@ -17,11 +17,16 @@ export default class AppointmentRepository {
     }
 
     async findAll(): Promise<Appointment[]> {
-        return await this.appointmentRepository.find()
+        return await this.appointmentRepository.find({
+            relations: ["doctor", "patient", "clinic"]
+        })
     }
 
     async findById(id: string): Promise<Appointment | null> {
-        return await this.appointmentRepository.findOneBy({ id })
+        return await this.appointmentRepository.findOne({
+            where: { id },
+            relations: ["doctor", "patient", "clinic"]
+        })
     }
 
     async update(id: string, data: Partial<Appointment>): Promise<Appointment | null> {
@@ -34,22 +39,45 @@ export default class AppointmentRepository {
         return result.affected !== undefined && result.affected > 0
     }
 
+    async save(appointment: Appointment): Promise<Appointment> {
+        return await this.appointmentRepository.save(appointment)
+    }
 
-    async changeStatus(id: string, status: AppointmentStatus) : Promise<Appointment> {
-        await this.appointmentRepository.update(id, {status: status})
+    async changeStatus(id: string, status: AppointmentStatus): Promise<Appointment | null> {
+        await this.appointmentRepository.update(id, { status })
         return await this.findById(id)
     }
-    async findAppointmentByDoctorAndDateTime(doctorId: string, date: string, time: string){
+
+    async findAppointmentByDoctorAndDateTime(doctorId: string, date: string, time: string): Promise<Appointment[]> {
         return await this.appointmentRepository.find({
             where: {
                 doctor: { id: doctorId },
                 date,
                 time
             },
-            relations: ["doctor"]
+            relations: ["doctor", "patient", "clinic"]
         })
     }
 
+    async findAppointmentsByDoctorId(doctorId: string): Promise<Appointment[]> {
+        return await this.appointmentRepository.find({
+            where: {
+                doctor: {
+                    id: doctorId
+                }
+            },
+            relations: ["doctor", "patient", "clinic"]
+        })
+    }
 
-
+    async findAppointmentsByPatientId(patientId: string): Promise<Appointment[]> {
+        return await this.appointmentRepository.find({
+            where: {
+                patient: {
+                    id: patientId
+                }
+            },
+            relations: ["doctor", "patient", "clinic"]
+        })
+    }
 }
