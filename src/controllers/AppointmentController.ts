@@ -1,7 +1,6 @@
 import { AppointmentService } from "../services/AppointmentService";
 import { Request, Response } from 'express';
 import { Role } from "../enums/Role";
-import APIError from "../error/ApiError";
 
 export class AppointmentController {
 
