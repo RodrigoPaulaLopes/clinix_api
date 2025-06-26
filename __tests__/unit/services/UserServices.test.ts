@@ -27,6 +27,7 @@ describe('UserServices', () => {
     afterAll(() => {
         jest.clearAllMocks();
     });
+    
     beforeEach(() => {
         mockUserRepository = {
             findAll: jest.fn().mockResolvedValue(mockUsers),

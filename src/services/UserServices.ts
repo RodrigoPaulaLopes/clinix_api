@@ -26,7 +26,7 @@ export default class UserServices {
         return await this.userRepository.create(user);
     }
 
-    async update(id: string, user: User): Promise<User> {
+    async update(id: string, user: User): Promise<User | null> {
         return await this.userRepository.update(id, user);
     }
 

@@ -40,9 +40,8 @@ export default class UserController {
     async update(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         const user: User = req.body;
-        user.id = id; // Ensure the ID is set for the update
         try {
-            const updatedUser = await this.userServices.update(user);
+            const updatedUser = await this.userServices.update(id, user);
             res.status(200).json(updatedUser);
         } catch (error) {
             res.status(500).json({ message: "Error updating user", error });

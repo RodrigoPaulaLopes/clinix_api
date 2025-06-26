@@ -41,11 +41,11 @@ describe("UserController", () => {
         userController = new UserController();
         userController.userServices = userServices;
     });
-    it.skip("should be defined", () => {
+    it("should be defined", () => {
         expect(UserController).toBeDefined();
     });
 
-    it.skip("should find all users", async () => {
+    it("should find all users", async () => {
 
         await userController.findAll(req, res);
 
