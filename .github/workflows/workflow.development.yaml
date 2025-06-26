@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Run Linter
+        run: yarn lint .
+        
       - name: Install dependencies
         run: yarn install
 

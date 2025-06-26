@@ -1,8 +1,7 @@
-import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 import APIError from '../error/ApiError';
 
 
-const apiErrorMiddleware = (err, req, res, next) => {
+const apiErrorMiddleware = (err, res) => {
 
     if (err instanceof APIError) {
         return res.status(err.status).json({

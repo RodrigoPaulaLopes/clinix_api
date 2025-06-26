@@ -10,7 +10,6 @@ import {
 } from "typeorm";
 import { Address } from "./Address";
 import { DaysAvailability } from "../../enums/DaysAvailability";
-import { User } from "./User";
 import Speciality from "./Speciality";
 import { Appointment } from "./Appointment";
 import { Doctor } from "./Doctor";

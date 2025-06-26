@@ -22,7 +22,7 @@ export class AuthenticationMiddleware {
                 req.user = decoded as User;
                 next();
             } catch (error) {
-                return res.status(401).json({ status: 'error', message: 'Invalid token' });
+                return res.status(401).json({ status: 'error', message: error.message || 'Invalid token' });
             }
         }
 }

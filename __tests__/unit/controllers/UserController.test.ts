@@ -8,7 +8,7 @@ import { Request, Response } from "express";
 describe("UserController", () => {  
     let userController: UserController;
     let userServices: jest.Mocked<UserServices>;
-    let mockUsers : User[] = [{
+    const mockUsers : User[] = [{
         id: '1',
         email: '',
         first_name: "",
@@ -32,7 +32,7 @@ describe("UserController", () => {
             update: jest.fn(),
             delete: jest.fn()
         } as unknown as jest.Mocked<UserServices>;
-        req = {} as any;
+        req = {} as jest.Mocked<Request>;
         res = {
             status: jest.fn().mockReturnThis(),
             json: jest.fn()

@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
-import { User } from "./User";
 import { DaysAvailability } from "../../enums/DaysAvailability";
 import { Doctor } from "./Doctor";
 

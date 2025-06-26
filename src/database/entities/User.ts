@@ -4,17 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
-  ManyToMany,
-  JoinTable,
   TableInheritance,
 } from "typeorm";
 import { Role } from "../../enums/Role";
-import Speciality from "./Speciality";
-import { DoctorAvailability } from "./DoctorAvailability";
 import { Address } from "./Address";
-import { Clinic } from "./Clinic";
-import { Appointment } from "./Appointment";
 
 @Entity("user")
 @TableInheritance({ column: { type: "varchar", name: "role" } })

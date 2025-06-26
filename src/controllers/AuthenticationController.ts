@@ -1,4 +1,3 @@
-import { stat } from "fs";
 import { User } from "../database/entities/User";
 import AuthenticationServices from "../services/AuthenticationServices";
 

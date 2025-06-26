@@ -1,6 +1,5 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../database/data-source";
-import { Doctor } from "../database/entities/Doctor";
 import { Patient } from "../database/entities/Patient";
 
 export default class PatientRepository {
