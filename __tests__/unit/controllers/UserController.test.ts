@@ -23,7 +23,7 @@ describe("UserController", () => {
     }];
 
     let req: jest.Mocked<Request>;
-    let res: jest.Mocked<Response>;
+    let res: jest.Mocked<Partial<Response>>;
     beforeAll(() => {
         userServices = {
             findAll: jest.fn().mockResolvedValue(mockUsers),
@@ -36,7 +36,7 @@ describe("UserController", () => {
         res = {
             status: jest.fn().mockReturnThis(),
             json: jest.fn()
-        } as any;
+        } as jest.Mocked<Partial<Response>>;
 
         userController = new UserController();
         userController.userServices = userServices;
