@@ -2,7 +2,9 @@
   "compilerOptions": {
     "target": "ES2021",
     "module": "commonjs",
-    "lib": ["es2021"],
+    "lib": [
+      "es2021"
+    ],
     "outDir": "./build",
     "rootDir": "./src",
     "moduleResolution": "node",
@@ -11,7 +13,14 @@
     "emitDecoratorMetadata": true,
     "strict": false,
     "sourceMap": true,
-    "typeRoots": ["./src/@types", "./node_modules/@types"]
+    "baseUrl": "./src",
+    "paths": {
+      "@types/*": [
+        "@types/*"
+      ]
+    }
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
