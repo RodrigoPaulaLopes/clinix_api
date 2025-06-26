@@ -29,7 +29,8 @@ export class AppointmentController {
     async getUserAppointments(req: Request, res: Response) {
         const userId = req.user?.id as string;
         const role = req.user?.role as Role;
-
+        console.log("Fetching appointments for user:", userId, "with role:", role);
+        
         const appointments = await this.appointmentService.getUserAppointments(userId, role);
         res.status(200).json(appointments);
     }
