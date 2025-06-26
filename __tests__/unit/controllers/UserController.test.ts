@@ -47,7 +47,7 @@ describe("UserController", () => {
 
     it("should find all users", async () => {
 
-        await userController.findAll(req, res);
+        await userController.findAll(req, res as Response);
 
         expect(userServices.findAll).toHaveBeenCalled();
         expect(res.status).toHaveBeenCalledWith(200);

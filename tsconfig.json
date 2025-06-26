@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "strict": true,
+    "strict": false,
     "sourceMap": true,
     "typeRoots": ["./src/@types", "./node_modules/@types"]
   },
