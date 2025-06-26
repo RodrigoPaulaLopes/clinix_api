@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import UserRepository from "../repositories/UserRepository";
+import { Admin } from "../database/entities/Admin";
 
 
 
@@ -19,7 +20,7 @@ export class AdminMiddleware {
         const user = await this.userRepository.findById(payload.id)
         
 
-        if (!user || !user.isAdmin()) {
+        if (!user || user instanceof Admin === false) {
             return res.status(403).json({ status: 'error', message: 'Access denied. Admins only.' });
         }
 

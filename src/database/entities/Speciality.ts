@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./User";
 import { Clinic } from "./Clinic";
+import { Doctor } from "./Doctor";
 
 
 
@@ -18,8 +19,8 @@ export default class Speciality {
     description?: string;
 
 
-    @ManyToMany(() => User, (user) => user.specialities)
-    users: User[];
+    @ManyToMany(() => Doctor, (doctor) => doctor.specialities)
+    doctors: Doctor[];
 
     @ManyToMany(() => Clinic, (clinic) => clinic.specialities)
     clinics: Clinic[];

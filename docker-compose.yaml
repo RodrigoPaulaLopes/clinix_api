@@ -21,6 +21,19 @@ services:
       - "${DB_PORT}:${DB_PORT}"
     volumes:
       - db_data:/var/lib/postgresql/data
+  clinix_database_test:
+    container_name: clinix_database_test
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${DB_USERNAME_TEST}
+      POSTGRES_PASSWORD: ${DB_PASSWORD_TEST}
+      POSTGRES_DB: ${DB_NAME_TEST}
+    ports:
+      - "${DB_PORT_TEST}:${DB_PORT_TEST}"
+    volumes:
+      - db_data_test:/var/lib/postgresql/data
 volumes:
   db_data:
+    driver: local
+  db_data_test:
     driver: local

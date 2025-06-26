@@ -6,14 +6,16 @@ import UserRepository from "../repositories/UserRepository";
 import APIError from "../error/ApiError";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import PatientRepository from "../repositories/PatientRepository";
+import { Patient } from "../database/entities/Patient";
 dotenv.config();
 
 class AuthenticationServices {
 
-  private userRepository: UserRepository;
+  private userRepository: PatientRepository;
 
   constructor() {
-    this.userRepository = new UserRepository();
+    this.userRepository = new PatientRepository();
   }
   public async login(email: string, password: string) {
     
@@ -34,7 +36,7 @@ class AuthenticationServices {
     return token;
 
   }
-  public async register(user: User) {
+  public async register(user: Patient) {
     const existingUser = await this.userRepository.findByEmail(user.email);
 
     if (existingUser) {

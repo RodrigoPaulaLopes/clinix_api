@@ -1,19 +1,25 @@
 import { Clinic } from "../database/entities/Clinic";
+import { Doctor } from "../database/entities/Doctor";
+import { Patient } from "../database/entities/Patient";
 import APIError from "../error/ApiError";
 import ClinicRepository from "../repositories/ClinicRepository";
 import { SpecialityRepository } from "../repositories/SpecialityRepository";
 import UserRepository from "../repositories/UserRepository";
+import DoctorServices from "./DoctorServices";
+import PatientServices from "./PatientServices";
 
 export default class ClinicService {
 
     clinicRepository: ClinicRepository;
     specialityRepository: SpecialityRepository;
-    userRepository: UserRepository
+    doctorService: DoctorServices;
+    patientService: PatientServices;
 
     constructor() {
         this.clinicRepository = new ClinicRepository();
         this.specialityRepository = new SpecialityRepository()
-        this.userRepository = new UserRepository()
+        this.doctorService = new DoctorServices();
+        this.patientService = new PatientServices();
     }
 
     async findAll() {
@@ -51,7 +57,7 @@ export default class ClinicService {
         
         const doctorIds = clinic.doctors.map(d => d.id);
         
-        const foundDoctors = await this.userRepository.findDoctorsByIds(doctorIds);
+        const foundDoctors = await this.doctorService.findByIds(doctorIds);
 
         if (foundDoctors.length !== doctorIds.length) {
             const foundIds = foundDoctors.map(d => d.id);
@@ -107,7 +113,7 @@ export default class ClinicService {
 
     if (clinic.doctors) {
         const doctorIds = clinic.doctors.map(d => d.id);
-        const foundDoctors = await this.userRepository.findDoctorsByIds(doctorIds);
+        const foundDoctors = await this.doctorService.findByIds(doctorIds);
 
         if (foundDoctors.length !== doctorIds.length) {
             const foundIds = foundDoctors.map(d => d.id);
@@ -134,10 +140,8 @@ export default class ClinicService {
         if (!clinic) {
             throw new APIError(404, "Clinic not found");
         }
-        const doctor = await this.userRepository.findDoctorById(doctorId);
-        if (!doctor) {
-            throw new APIError(404, "Doctor not found");
-        }
+        const doctor = await this.doctorService.findById(doctorId);
+
         if (clinic.doctors.some(d => d.id === doctorId)) {
             throw new APIError(400, "Doctor already added to clinic");
         }

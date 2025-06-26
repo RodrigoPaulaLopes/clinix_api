@@ -1,6 +1,8 @@
-import UserController from "../../src/controllers/UserController";
-import { User } from "../../src/database/entities/User";
-import UserServices from "../../src/services/UserServices";
+import UserController from "../../../src/controllers/UserController";
+import { Address } from "../../../src/database/entities/Address";
+import { User } from "../../../src/database/entities/User";
+import { Role } from "../../../src/enums/Role";
+import UserServices from "../../../src/services/UserServices";
 import { Request, Response } from "express";
 
 describe("UserController", () => {  
@@ -14,12 +16,14 @@ describe("UserController", () => {
         date_of_birth: "",
         cpf: "",
         password: "",
-        created_at: undefined,
-        updated_at: undefined
+        created_at: new Date,
+        updated_at: new Date,
+        address: new Address,
+        role: Role.ADMIN
     }];
 
     let req: jest.Mocked<Request>;
-    let res: jest.Mocked<Response>;
+    let res: jest.Mocked<Partial<Response>>;
     beforeAll(() => {
         userServices = {
             findAll: jest.fn().mockResolvedValue(mockUsers),
@@ -32,7 +36,7 @@ describe("UserController", () => {
         res = {
             status: jest.fn().mockReturnThis(),
             json: jest.fn()
-        } as any;
+        } as jest.Mocked<Partial<Response>>;
 
         userController = new UserController();
         userController.userServices = userServices;
@@ -43,7 +47,7 @@ describe("UserController", () => {
 
     it("should find all users", async () => {
 
-        await userController.findAll(req, res);
+        await userController.findAll(req, res as Response);
 
         expect(userServices.findAll).toHaveBeenCalled();
         expect(res.status).toHaveBeenCalledWith(200);
