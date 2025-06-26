@@ -22,7 +22,8 @@ export class AppointmentController {
             date,
             time
         );
-
+        console.log("Appointment created:", appointment);
+        
         res.status(201).json(appointment);
     }
     async getUserAppointments(req: Request, res: Response) {
