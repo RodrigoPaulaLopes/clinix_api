@@ -43,11 +43,11 @@ describe('UserServices', () => {
 
     });
 
-    it.skip("should be defined", () => {
+    it("should be defined", () => {
         expect(userServices).toBeDefined();
     });
 
-    it.skip('should find all users', async () => {
+    it('should find all users', async () => {
 
         const findAllSpy = jest.spyOn(userServices, 'findAll');
         const users = await userServices.findAll();
