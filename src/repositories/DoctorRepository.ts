@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { AppDataSource } from "../database/data-source";
 import { Doctor } from "../database/entities/Doctor";
 
@@ -17,6 +17,14 @@ export default class DoctorRepository {
         return await this.repository.findOne({ 
             where: {
                 id
+            },
+            relations: ['clinics', 'availabilities']
+         });
+    }
+    async findByIds(ids: string[]): Promise<Doctor[] | null> {
+        return await this.repository.find({ 
+            where: {
+                id: In(ids)
             },
             relations: ['clinics', 'availabilities']
          });

@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { NextFunction, Request, Response } from "express";
+import { User } from '../database/entities/User';
 dotenv.config();
 
 export class AuthenticationMiddleware {
@@ -18,7 +19,7 @@ export class AuthenticationMiddleware {
             
             try {
                 const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string);
-                req.user = decoded;
+                req.user = decoded as User;
                 next();
             } catch (error) {
                 return res.status(401).json({ status: 'error', message: 'Invalid token' });

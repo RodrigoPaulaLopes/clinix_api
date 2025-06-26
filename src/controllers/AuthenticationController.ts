@@ -3,6 +3,7 @@ import { User } from "../database/entities/User";
 import AuthenticationServices from "../services/AuthenticationServices";
 
 import { Request, Response } from "express";
+import { Patient } from "../database/entities/Patient";
 
 export default class AuthenticationController {
 
@@ -23,7 +24,7 @@ export default class AuthenticationController {
 
         const { email, password,  cpf, first_name, last_name, phone, address, date_of_birth }  = body;
 
-        const data = await this.authenticationServices.register({ email, password, cpf, first_name, last_name, phone, address, date_of_birth } as User);
+        const data = await this.authenticationServices.register({ email, password, cpf, first_name, last_name, phone, address, date_of_birth } as Patient);
         res.status(201).json({status: "success", message: "User create successfully!", data: data});
     }
 }

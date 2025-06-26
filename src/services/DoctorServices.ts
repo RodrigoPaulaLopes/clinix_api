@@ -19,6 +19,11 @@ export default class DoctorServices {
         if(!doctor) throw new APIError(404, "Doctor not found")
         return doctor
     }
+    async findByIds(ids: string[]): Promise<Doctor[] | null> {
+        const doctors = await this.doctorRepository.findByIds(ids);
+        if(!doctors) throw new APIError(404, "Doctor not found")
+        return doctors
+    }
 
     async findByEmail(email: string): Promise<Doctor | null> {
         const doctor = await this.doctorRepository.findByEmail(email);
