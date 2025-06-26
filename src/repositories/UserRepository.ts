@@ -25,7 +25,7 @@ export default class UserRepository {
         return await this.repository .save(user);
     }
 
-    async update(id: string, user: User): Promise<User> {
+    async update(id: string, user: User): Promise<User | null> {
         await this.repository .update(id, user);
         return await this.findById(id);
     }
